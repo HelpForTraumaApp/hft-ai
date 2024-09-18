@@ -61,7 +61,7 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
       className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]"
       ref={scrollRef}
     >
-      <div
+      {/* <div
         className={cn('pb-[200px] pt-4 md:pt-10', className)}
         ref={messagesRef}
       >
@@ -78,7 +78,24 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
         setInput={setInput}
         isAtBottom={isAtBottom}
         scrollToBottom={scrollToBottom}
-      />
+      /> */}
+      <div className="flex h-[96%]">
+        <div className="w-2/3">
+          <iframe
+            className="p-5 w-full h-full"
+            src="https://excalidraw.com/"
+          ></iframe>
+        </div>
+        <div className="mt-10 w-1/3 flex items-end">
+          <ChatPanel
+            id={id}
+            input={input}
+            setInput={setInput}
+            isAtBottom={isAtBottom}
+            scrollToBottom={scrollToBottom}
+          />
+        </div>
+      </div>
     </div>
   )
 }
