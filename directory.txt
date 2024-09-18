@@ -1,0 +1,174 @@
+.
+├── LICENSE
+├── README.md
+├── app
+│   ├── (chat)
+│   │   ├── chat
+│   │   │   └── [id]
+│   │   │       └── page.tsx
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── actions.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── login
+│   │   ├── actions.ts
+│   │   └── page.tsx
+│   ├── new
+│   │   └── page.tsx
+│   ├── opengraph-image.png
+│   ├── share
+│   │   └── [id]
+│   │       └── page.tsx
+│   ├── signup
+│   │   ├── actions.ts
+│   │   └── page.tsx
+│   └── twitter-image.png
+├── auth.config.ts
+├── auth.ts
+├── components
+│   ├── button-scroll-to-bottom.tsx
+│   ├── chat-history.tsx
+│   ├── chat-list.tsx
+│   ├── chat-message-actions.tsx
+│   ├── chat-message.tsx
+│   ├── chat-panel.tsx
+│   ├── chat-share-dialog.tsx
+│   ├── chat.tsx
+│   ├── clear-history.tsx
+│   ├── empty-screen.tsx
+│   ├── external-link.tsx
+│   ├── footer.tsx
+│   ├── header.tsx
+│   ├── login-button.tsx
+│   ├── login-form.tsx
+│   ├── markdown.tsx
+│   ├── prompt-form.tsx
+│   ├── providers.tsx
+│   ├── sidebar-actions.tsx
+│   ├── sidebar-desktop.tsx
+│   ├── sidebar-footer.tsx
+│   ├── sidebar-item.tsx
+│   ├── sidebar-items.tsx
+│   ├── sidebar-list.tsx
+│   ├── sidebar-mobile.tsx
+│   ├── sidebar-toggle.tsx
+│   ├── sidebar.tsx
+│   ├── signup-form.tsx
+│   ├── stocks
+│   │   ├── events-skeleton.tsx
+│   │   ├── events.tsx
+│   │   ├── index.tsx
+│   │   ├── message.tsx
+│   │   ├── spinner.tsx
+│   │   ├── stock-purchase.tsx
+│   │   ├── stock-skeleton.tsx
+│   │   ├── stock.tsx
+│   │   ├── stocks-skeleton.tsx
+│   │   └── stocks.tsx
+│   ├── tailwind-indicator.tsx
+│   ├── theme-toggle.tsx
+│   ├── ui
+│   │   ├── alert-dialog.tsx
+│   │   ├── badge.tsx
+│   │   ├── button.tsx
+│   │   ├── codeblock.tsx
+│   │   ├── dialog.tsx
+│   │   ├── dropdown-menu.tsx
+│   │   ├── icons.tsx
+│   │   ├── input.tsx
+│   │   ├── label.tsx
+│   │   ├── select.tsx
+│   │   ├── separator.tsx
+│   │   ├── sheet.tsx
+│   │   ├── sonner.tsx
+│   │   ├── switch.tsx
+│   │   ├── textarea.tsx
+│   │   └── tooltip.tsx
+│   └── user-menu.tsx
+├── components.json
+├── directory.txt
+├── lib
+│   ├── chat
+│   │   └── actions.tsx
+│   ├── hooks
+│   │   ├── use-copy-to-clipboard.tsx
+│   │   ├── use-enter-submit.tsx
+│   │   ├── use-local-storage.ts
+│   │   ├── use-scroll-anchor.tsx
+│   │   ├── use-sidebar.tsx
+│   │   └── use-streamable-text.ts
+│   ├── types.ts
+│   └── utils.ts
+├── middleware.ts
+├── next-env.d.ts
+├── next.config.js
+├── node_modules
+│   ├── @ai-sdk
+│   │   └── openai -> ../.pnpm/@ai-sdk+openai@0.0.53_zod@3.23.8/node_modules/@ai-sdk/openai
+│   ├── @excalidraw
+│   │   └── excalidraw -> ../.pnpm/@excalidraw+excalidraw@0.17.6_react-dom@18.3.1_react@18.3.1/node_modules/@excalidraw/excalidraw
+│   ├── @radix-ui
+│   │   ├── react-alert-dialog -> ../.pnpm/@radix-ui+react-alert-dialog@1.1.1_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-alert-dialog
+│   │   ├── react-dialog -> ../.pnpm/@radix-ui+react-dialog@1.1.1_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-dialog
+│   │   ├── react-dropdown-menu -> ../.pnpm/@radix-ui+react-dropdown-menu@2.1.1_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-dropdown-menu
+│   │   ├── react-icons -> ../.pnpm/@radix-ui+react-icons@1.3.0_react@18.3.1/node_modules/@radix-ui/react-icons
+│   │   ├── react-label -> ../.pnpm/@radix-ui+react-label@2.1.0_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-label
+│   │   ├── react-select -> ../.pnpm/@radix-ui+react-select@2.1.1_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-select
+│   │   ├── react-separator -> ../.pnpm/@radix-ui+react-separator@1.1.0_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-separator
+│   │   ├── react-slot -> ../.pnpm/@radix-ui+react-slot@1.1.0_@types+react@18.3.4_react@18.3.1/node_modules/@radix-ui/react-slot
+│   │   ├── react-switch -> ../.pnpm/@radix-ui+react-switch@1.1.0_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-switch
+│   │   └── react-tooltip -> ../.pnpm/@radix-ui+react-tooltip@1.1.2_@types+react-dom@18.3.0_@types+react@18.3.4_react-dom@18.3.1_react@18.3.1/node_modules/@radix-ui/react-tooltip
+│   ├── @tailwindcss
+│   │   └── typography -> ../.pnpm/@tailwindcss+typography@0.5.14_tailwindcss@3.4.10/node_modules/@tailwindcss/typography
+│   ├── @types
+│   │   ├── node -> ../.pnpm/@types+node@22.5.0/node_modules/@types/node
+│   │   ├── react -> ../.pnpm/@types+react@18.3.4/node_modules/@types/react
+│   │   ├── react-dom -> ../.pnpm/@types+react-dom@18.3.0/node_modules/@types/react-dom
+│   │   └── react-syntax-highlighter -> ../.pnpm/@types+react-syntax-highlighter@15.5.13/node_modules/@types/react-syntax-highlighter
+│   ├── @vercel
+│   │   ├── analytics -> ../.pnpm/@vercel+analytics@1.3.1_next@14.2.6_react@18.3.1/node_modules/@vercel/analytics
+│   │   └── kv -> ../.pnpm/@vercel+kv@2.0.0/node_modules/@vercel/kv
+│   ├── ai -> .pnpm/ai@3.3.17_openai@4.56.0_react@18.3.1_svelte@4.2.19_vue@3.4.38_zod@3.23.8/node_modules/ai
+│   ├── autoprefixer -> .pnpm/autoprefixer@10.4.20_postcss@8.4.41/node_modules/autoprefixer
+│   ├── class-variance-authority -> .pnpm/class-variance-authority@0.7.0/node_modules/class-variance-authority
+│   ├── clsx -> .pnpm/clsx@2.1.1/node_modules/clsx
+│   ├── framer-motion -> .pnpm/framer-motion@11.3.30_react-dom@18.3.1_react@18.3.1/node_modules/framer-motion
+│   ├── geist -> .pnpm/geist@1.3.1_next@14.2.6/node_modules/geist
+│   ├── nanoid -> .pnpm/nanoid@5.0.7/node_modules/nanoid
+│   ├── next -> .pnpm/next@14.2.6_react-dom@18.3.1_react@18.3.1_sass@1.78.0/node_modules/next
+│   ├── next-auth -> .pnpm/next-auth@5.0.0-beta.4_next@14.2.6_react@18.3.1/node_modules/next-auth
+│   ├── next-themes -> .pnpm/next-themes@0.3.0_react-dom@18.3.1_react@18.3.1/node_modules/next-themes
+│   ├── openai -> .pnpm/openai@4.56.0_zod@3.23.8/node_modules/openai
+│   ├── postcss -> .pnpm/postcss@8.4.41/node_modules/postcss
+│   ├── prettier -> .pnpm/prettier@3.3.3/node_modules/prettier
+│   ├── react -> .pnpm/react@18.3.1/node_modules/react
+│   ├── react-dom -> .pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom
+│   ├── react-intersection-observer -> .pnpm/react-intersection-observer@9.10.3_react-dom@18.3.1_react@18.3.1/node_modules/react-intersection-observer
+│   ├── react-markdown -> .pnpm/react-markdown@8.0.7_@types+react@18.3.4_react@18.3.1/node_modules/react-markdown
+│   ├── react-syntax-highlighter -> .pnpm/react-syntax-highlighter@15.5.0_react@18.3.1/node_modules/react-syntax-highlighter
+│   ├── react-textarea-autosize -> .pnpm/react-textarea-autosize@8.5.3_@types+react@18.3.4_react@18.3.1/node_modules/react-textarea-autosize
+│   ├── remark-gfm -> .pnpm/remark-gfm@3.0.1/node_modules/remark-gfm
+│   ├── remark-math -> .pnpm/remark-math@5.1.1/node_modules/remark-math
+│   ├── sass -> .pnpm/sass@1.78.0/node_modules/sass
+│   ├── sonner -> .pnpm/sonner@1.5.0_react-dom@18.3.1_react@18.3.1/node_modules/sonner
+│   ├── tailwind-merge -> .pnpm/tailwind-merge@2.5.2/node_modules/tailwind-merge
+│   ├── tailwindcss -> .pnpm/tailwindcss@3.4.10/node_modules/tailwindcss
+│   ├── tailwindcss-animate -> .pnpm/tailwindcss-animate@1.0.7_tailwindcss@3.4.10/node_modules/tailwindcss-animate
+│   ├── typescript -> .pnpm/typescript@5.5.4/node_modules/typescript
+│   └── zod -> .pnpm/zod@3.23.8/node_modules/zod
+├── package.json
+├── pnpm-lock.yaml
+├── postcss.config.js
+├── prettier.config.cjs
+├── public
+│   ├── apple-touch-icon.png
+│   ├── favicon-16x16.png
+│   ├── favicon.ico
+│   ├── next.svg
+│   ├── thirteen.svg
+│   └── vercel.svg
+├── tailwind.config.ts
+└── tsconfig.json
+
+71 directories, 101 files
