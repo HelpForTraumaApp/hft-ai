@@ -26,7 +26,10 @@ export const HomePage = () => {
       rightContentsRef.current.style.paddingBottom =
         (
           leftParentRef.current.getBoundingClientRect().bottom -
-          leftChildRef.current.getBoundingClientRect().top
+          leftChildRef.current.getBoundingClientRect().top -
+          (rightContentsRef.current.querySelector('#contact') as HTMLDivElement)
+            .offsetHeight -
+          10
         ).toFixed() + 'px'
     }
   }, [leftParentRef.current, leftChildRef.current, rightContentsRef.current])
@@ -34,6 +37,7 @@ export const HomePage = () => {
   useEffect(() => {
     if (rightContentsRef.current) {
       rightContentsRef.current.addEventListener('scroll', handleScroll)
+      handleScroll()
     }
 
     return () => {
@@ -42,9 +46,34 @@ export const HomePage = () => {
   }, [])
 
   const handleScroll = () => {
-    if (!rightContentsRef.current) return
+    if (
+      !leftParentRef.current ||
+      !leftChildRef.current ||
+      !rightContentsRef.current
+    ) {
+      return
+    }
 
-    console.log(rightContentsRef.current.scrollTop)
+    const children =
+      rightContentsRef.current.querySelectorAll('.homepage-content')
+
+    let activeChild = ''
+    const childTop =
+      leftChildRef.current.getBoundingClientRect().top -
+      leftParentRef.current.getBoundingClientRect().top
+
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i]
+
+      if (
+        rightContentsRef.current.scrollTop >=
+        (child as HTMLDivElement).offsetTop - childTop - 50
+      ) {
+        activeChild = children[i].getAttribute('id') || ''
+      }
+    }
+
+    setActiveNav(activeChild)
   }
 
   const handleClickNavigation = (id: string) => {
