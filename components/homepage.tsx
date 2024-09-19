@@ -142,7 +142,7 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col basis-2/3 max-h-[calc(100vh-64px)]">
+      <div className="flex flex-col basis-2/3 max-h-[calc(100vh-64px)] gradient-mask">
         <div
           className={`my-10 px-20 max-h-full overflow-y-auto scroll-smooth scrollbar-hidden`}
           ref={rightContentsRef}

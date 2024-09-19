@@ -76,4 +76,32 @@
   .scrollbar-hidden::-webkit-scrollbar {
     width: 0;
   }
+
+  .gradient-mask {
+    position: relative;
+  }
+
+  .gradient-mask::before {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 2.5rem;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(to bottom, #faf9fa 0%, #faf9fa00 100%);
+    z-index: 1;
+  }
+
+  .gradient-mask::after {
+    content: '';
+    position: absolute;
+    display: block;
+    left: 0;
+    bottom: 2.5rem;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(to top, #faf9fa 0%, #faf9fa00 100%);
+    z-index: 1;
+  }
 }
