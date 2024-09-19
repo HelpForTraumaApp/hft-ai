@@ -1,9 +1,11 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Content from '@/components/homepage-content'
 
 export const HomePage = () => {
+  const [activeNav, setActiveNav] = useState('')
+
   const leftParentRef = useRef<HTMLDivElement>(null)
   const leftChildRef = useRef<HTMLDivElement>(null)
   const rightContentsRef = useRef<HTMLDivElement>(null)
@@ -16,6 +18,8 @@ export const HomePage = () => {
     ) {
       return
     }
+
+    setActiveNav(id)
 
     const childPositionTop =
       leftChildRef.current.getBoundingClientRect().top -
@@ -47,57 +51,30 @@ export const HomePage = () => {
           </div>
           <div className="navigation my-10">
             <ul className="">
-              <li className="text-[24px] font-semibold hover:text-[#74549d]">
-                <button onClick={() => handleClickNavigation('who')}>
-                  Who
-                </button>
-              </li>
-              <li className="text-[80px] font-semibold hover:text-[#74549d]">
-                <button onClick={() => handleClickNavigation('what')}>
-                  What
-                </button>
-              </li>
-              <li className="text-[24px] font-semibold hover:text-[#74549d]">
-                <button onClick={() => handleClickNavigation('why')}>
-                  Why
-                </button>
-              </li>
-              <li className="text-[24px] font-semibold hover:text-[#74549d]">
-                <button onClick={() => handleClickNavigation('how')}>
-                  How
-                </button>
-              </li>
-              <li className="text-[24px] font-semibold hover:text-[#74549d]">
-                <button onClick={() => handleClickNavigation('features')}>
-                  Features
-                </button>
-              </li>
-              <li className="text-[24px] font-semibold hover:text-[#74549d]">
-                <button onClick={() => handleClickNavigation('testimonials')}>
-                  Testimonials
-                </button>
-              </li>
-              <li className="text-[24px] font-semibold hover:text-[#74549d]">
-                <button
-                  onClick={() => handleClickNavigation('privacy-security')}
+              {mainNavs.map((nav, index) => (
+                <li
+                  key={index}
+                  className="text-[24px] font-semibold hover:text-[#74549d]"
                 >
-                  Privacy & Security
-                </button>
-              </li>
+                  <button onClick={() => handleClickNavigation(nav.id)}>
+                    {nav.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="text-nowrap">
-            <a href="/#get-started" className="hover:text-[#74549d]">
-              Get Started
-            </a>{' '}
-            |{' '}
-            <a href="/#resources" className="hover:text-[#74549d]">
-              Resources
-            </a>{' '}
-            |{' '}
-            <a href="/#contact" className="hover:text-[#74549d]">
-              Contact Us
-            </a>
+            {subNavs.map((nav, index) => (
+              <span key={index}>
+                {index == 0 ? <></> : <> | </>}
+                <button
+                  className="hover:text-[#74549d]"
+                  onClick={() => handleClickNavigation(nav.id)}
+                >
+                  {nav.label}
+                </button>
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -121,6 +98,22 @@ export const HomePage = () => {
     </div>
   )
 }
+
+const mainNavs = [
+  { id: 'who', label: 'Who' },
+  { id: 'what', label: 'What' },
+  { id: 'why', label: 'Why' },
+  { id: 'how', label: 'How' },
+  { id: 'features', label: 'Features' },
+  { id: 'testimonials', label: 'Testimonials' },
+  { id: 'privacy-security', label: 'Privacy & Security' }
+]
+
+const subNavs = [
+  { id: 'get-started', label: 'Get Started' },
+  { id: 'resources', label: 'Resources' },
+  { id: 'contact', label: 'Contact Us' }
+]
 
 const homepageContents = [
   {
