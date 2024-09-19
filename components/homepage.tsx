@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Content from '@/components/homepage-content'
 
 export const HomePage = () => {
@@ -9,6 +9,43 @@ export const HomePage = () => {
   const leftParentRef = useRef<HTMLDivElement>(null)
   const leftChildRef = useRef<HTMLDivElement>(null)
   const rightContentsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (
+      leftParentRef.current &&
+      leftChildRef.current &&
+      rightContentsRef.current
+    ) {
+      rightContentsRef.current.style.paddingTop =
+        (
+          leftChildRef.current.getBoundingClientRect().top -
+          leftParentRef.current.getBoundingClientRect().top -
+          64
+        ).toFixed() + 'px'
+
+      rightContentsRef.current.style.paddingBottom =
+        (
+          leftParentRef.current.getBoundingClientRect().bottom -
+          leftChildRef.current.getBoundingClientRect().top
+        ).toFixed() + 'px'
+    }
+  }, [leftParentRef.current, leftChildRef.current, rightContentsRef.current])
+
+  useEffect(() => {
+    if (rightContentsRef.current) {
+      rightContentsRef.current.addEventListener('scroll', handleScroll)
+    }
+
+    return () => {
+      rightContentsRef.current?.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const handleScroll = () => {
+    if (!rightContentsRef.current) return
+
+    console.log(rightContentsRef.current.scrollTop)
+  }
 
   const handleClickNavigation = (id: string) => {
     if (
@@ -19,19 +56,17 @@ export const HomePage = () => {
       return
     }
 
-    setActiveNav(id)
-
-    const childPositionTop =
-      leftChildRef.current.getBoundingClientRect().top -
-      leftParentRef.current.getBoundingClientRect().top
-
     const contentItemElement: HTMLDivElement | null =
       rightContentsRef.current.querySelector(`#${id}`)
 
     if (!contentItemElement) return
 
+    const childTop =
+      leftChildRef.current.getBoundingClientRect().top -
+      leftParentRef.current.getBoundingClientRect().top
+
     rightContentsRef.current.scrollTop =
-      contentItemElement.offsetTop - childPositionTop - 36
+      contentItemElement.offsetTop - childTop - 36
   }
 
   return (
@@ -80,7 +115,7 @@ export const HomePage = () => {
       </div>
       <div className="flex flex-col basis-2/3 max-h-[calc(100vh-64px)]">
         <div
-          className="my-10 px-20 max-h-full overflow-y-auto scroll-smooth scrollbar-hidden"
+          className={`my-10 px-20 max-h-full overflow-y-auto scroll-smooth scrollbar-hidden`}
           ref={rightContentsRef}
         >
           {homepageContents.map((content, index) => (
