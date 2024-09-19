@@ -54,7 +54,7 @@ export const HomePage = () => {
               {mainNavs.map((nav, index) => (
                 <li
                   key={index}
-                  className="text-[24px] font-semibold hover:text-[#74549d]"
+                  className={`text-[24px] font-semibold hover:text-[#74549d] ${activeNav == nav.id ? ' text-[#74549d]' : ''}`}
                 >
                   <button onClick={() => handleClickNavigation(nav.id)}>
                     {nav.label}
@@ -68,7 +68,7 @@ export const HomePage = () => {
               <span key={index}>
                 {index == 0 ? <></> : <> | </>}
                 <button
-                  className="hover:text-[#74549d]"
+                  className={`hover:text-[#74549d] ${activeNav == nav.id ? ' text-[#74549d]' : ''}`}
                   onClick={() => handleClickNavigation(nav.id)}
                 >
                   {nav.label}
