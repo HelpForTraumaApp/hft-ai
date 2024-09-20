@@ -79,14 +79,14 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
         isAtBottom={isAtBottom}
         scrollToBottom={scrollToBottom}
       /> */}
-      <div className="flex h-[96%]">
+      <div className="flex h-full">
         <div className="w-2/3">
           <iframe
             className="p-5 w-full h-full"
             src="https://excalidraw.com/"
           ></iframe>
         </div>
-        <div className="mt-10 w-1/3 flex items-end">
+        <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700">
           <ChatPanel
             id={id}
             input={input}

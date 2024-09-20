@@ -10,6 +10,7 @@ import {
 export function SidebarList() {
   const [isOpenPartsMenu, setOpenPartsMenu] = useState(false)
   const [isOpenResMenu, setOpenResMenu] = useState(false)
+  const [selectedItem, setSelectedItem] = useState('Dashboard')
 
   return (
     <nav>
@@ -24,14 +25,28 @@ export function SidebarList() {
       </div>
 
       <ul>
-        <li className="px-6 py-5 bg-sky-100 border-l-4 border-sky-600 text-lg font-semibold">
+        <li 
+          className={`px-6 py-5 ${selectedItem === 'Dashboard' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+          onClick={() => setSelectedItem('Dashboard')}
+        >
           Dashboard
         </li>
-        <li className="px-7 py-5 text-lg font-semibold">Safe Place</li>
+        <li 
+          className={`px-7 py-5 ${selectedItem === 'Safe Place' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+          onClick={() => setSelectedItem('Safe Place')}
+        >
+          Safe Place
+        </li>
         <li>
-          <div className="w-full px-5 py-5 bg-sky-100 border-l-4 border-sky-600 text-lg font-semibold">
+          <div 
+            className={`w-full px-5 py-5 ${selectedItem === 'Parts' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+            onClick={() => setSelectedItem('Parts')}
+          >
             <button
-              onClick={() => setOpenPartsMenu(!isOpenPartsMenu)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenPartsMenu(!isOpenPartsMenu);
+              }}
               className="w-full flex justify-between items-center"
             >
               Parts{' '}
@@ -44,40 +59,26 @@ export function SidebarList() {
           </div>
 
           <ul className={`${isOpenPartsMenu === true ? '' : 'hidden'}`}>
-            <li className="px-10 py-5 text-lg font-semibold">Parts Map</li>
-            <li className="px-10 py-5 text-lg font-semibold">
+            <li 
+              className={`px-10 py-5 ${selectedItem === 'Parts Map' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+              onClick={() => setSelectedItem('Parts Map')}
+            >
+              Parts Map
+            </li>
+            <li 
+              className={`px-10 py-5 ${selectedItem === 'Externalized Dialogue' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+              onClick={() => setSelectedItem('Externalized Dialogue')}
+            >
               Externalized Dialogue
             </li>
           </ul>
         </li>
-        <li className="px-7 py-5 text-lg font-semibold">Stories</li>
-        <li>
-          <div className="w-full px-5 py-5 bg-sky-100 border-l-4 border-sky-600 text-lg font-semibold">
-            <button
-              onClick={() => setOpenResMenu(!isOpenResMenu)}
-              className="w-full flex justify-between items-center"
-            >
-              Resources{' '}
-              {isOpenResMenu === true ? (
-                <MdOutlineKeyboardArrowUp className="text-lg" />
-              ) : (
-                <MdOutlineKeyboardArrowDown className="text-lg" />
-              )}
-            </button>
-          </div>
-
-          <ul className={`${isOpenResMenu === true ? '' : 'hidden'}`}>
-            <li className="pl-10 pr-5 py-5 text-lg font-semibold w-full flex items-center justify-between">
-              Dashboard <MdOutlineKeyboardArrowDown className="text-lg" />
-            </li>
-            <li className="pl-10 pr-5 py-5 text-lg font-semibold w-full flex items-center justify-between">
-              Safe Place <MdOutlineKeyboardArrowDown className="text-lg" />
-            </li>
-          </ul>
+        <li 
+          className={`px-7 py-5 ${selectedItem === 'Stories' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+          onClick={() => setSelectedItem('Stories')}
+        >
+          Stories
         </li>
-        <li className="px-7 py-5 text-lg font-semibold">My Clients</li>
-        <li className="px-7 py-5 text-lg font-semibold">Bulk Licenses</li>
-        <li className="px-7 py-5 text-lg font-semibold">My Account</li>
       </ul>
     </nav>
   )
