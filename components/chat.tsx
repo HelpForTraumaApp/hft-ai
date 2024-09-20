@@ -86,7 +86,7 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
             src="https://excalidraw.com/"
           ></iframe>
         </div>
-        <div className="w-1/3 flex items-end">
+        <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700">
           <ChatPanel
             id={id}
             input={input}
