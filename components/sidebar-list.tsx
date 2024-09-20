@@ -51,33 +51,6 @@ export function SidebarList() {
           </ul>
         </li>
         <li className="px-7 py-5 text-lg font-semibold">Stories</li>
-        <li>
-          <div className="w-full px-5 py-5 bg-sky-100 border-l-4 border-sky-600 text-lg font-semibold">
-            <button
-              onClick={() => setOpenResMenu(!isOpenResMenu)}
-              className="w-full flex justify-between items-center"
-            >
-              Resources{' '}
-              {isOpenResMenu === true ? (
-                <MdOutlineKeyboardArrowUp className="text-lg" />
-              ) : (
-                <MdOutlineKeyboardArrowDown className="text-lg" />
-              )}
-            </button>
-          </div>
-
-          <ul className={`${isOpenResMenu === true ? '' : 'hidden'}`}>
-            <li className="pl-10 pr-5 py-5 text-lg font-semibold w-full flex items-center justify-between">
-              Dashboard <MdOutlineKeyboardArrowDown className="text-lg" />
-            </li>
-            <li className="pl-10 pr-5 py-5 text-lg font-semibold w-full flex items-center justify-between">
-              Safe Place <MdOutlineKeyboardArrowDown className="text-lg" />
-            </li>
-          </ul>
-        </li>
-        <li className="px-7 py-5 text-lg font-semibold">My Clients</li>
-        <li className="px-7 py-5 text-lg font-semibold">Bulk Licenses</li>
-        <li className="px-7 py-5 text-lg font-semibold">My Account</li>
       </ul>
     </nav>
   )
