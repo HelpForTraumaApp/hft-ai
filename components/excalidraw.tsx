@@ -12,6 +12,7 @@ const Excalidraw = () => {
             <ExcalidrawPrimitive
                 initialData={{
                     appState: {
+                        viewBackgroundColor: '#f8f9fa',
                         currentItemFontFamily: 1,
                     },
                 }}
