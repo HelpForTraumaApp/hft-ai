@@ -32,46 +32,28 @@ export function SidebarList() {
           Dashboard
         </li>
         <li 
+          className={`px-7 py-5 ${selectedItem === 'Grounding' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+          onClick={() => setSelectedItem('Grounding')}
+        >
+          Grounding
+        </li>
+        <li 
           className={`px-7 py-5 ${selectedItem === 'Safe Place' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           onClick={() => setSelectedItem('Safe Place')}
         >
           Safe Place
         </li>
-        <li>
-          <div 
-            className={`w-full px-5 py-5 ${selectedItem === 'Parts' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-            onClick={() => setSelectedItem('Parts')}
-          >
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setOpenPartsMenu(!isOpenPartsMenu);
-              }}
-              className="w-full flex justify-between items-center"
-            >
-              Parts{' '}
-              {isOpenPartsMenu === true ? (
-                <MdOutlineKeyboardArrowUp className="text-lg" />
-              ) : (
-                <MdOutlineKeyboardArrowDown className="text-lg" />
-              )}
-            </button>
-          </div>
-
-          <ul className={`${isOpenPartsMenu === true ? '' : 'hidden'}`}>
-            <li 
-              className={`px-10 py-5 ${selectedItem === 'Parts Map' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-              onClick={() => setSelectedItem('Parts Map')}
-            >
-              Parts Map
-            </li>
-            <li 
-              className={`px-10 py-5 ${selectedItem === 'Externalized Dialogue' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-              onClick={() => setSelectedItem('Externalized Dialogue')}
-            >
-              Externalized Dialogue
-            </li>
-          </ul>
+        <li 
+          className={`px-7 py-5 ${selectedItem === 'Parts Map' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+          onClick={() => setSelectedItem('Parts Map')}
+        >
+          True Self & Parts Map
+        </li>
+        <li 
+          className={`px-7 py-5 ${selectedItem === 'Externalized Dialogue' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+          onClick={() => setSelectedItem('Externalized Dialogue')}
+        >
+          Externalized Dialogue
         </li>
         <li 
           className={`px-7 py-5 ${selectedItem === 'Stories' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
