@@ -70,9 +70,11 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   .scrollbar-hidden::-webkit-scrollbar {
     width: 0;
   }
@@ -104,4 +106,13 @@
     background: linear-gradient(to top, #faf9fa 0%, #faf9fa00 100%);
     z-index: 1;
   }
+
+}
+
+.excalidraw .layer-ui__wrapper__top-right,
+.excalidraw .layer-ui__wrapper__footer-right,
+.main-menu-trigger,
+.App-toolbar__divider,
+.App-toolbar__extra-tools-trigger {
+  display: none !important;
 }
