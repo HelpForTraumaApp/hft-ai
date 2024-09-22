@@ -2,16 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowUp
-} from 'react-icons/md'
+import { usePathname } from 'next/navigation'
 
 export function SidebarList() {
-  const [isOpenPartsMenu, setOpenPartsMenu] = useState(false)
-  const [isOpenResMenu, setOpenResMenu] = useState(false)
-  const [selectedItem, setSelectedItem] = useState('Dashboard')
+  const pathname = usePathname()
 
   return (
     <nav>
@@ -28,51 +22,43 @@ export function SidebarList() {
       <div>
         <Link href="/dashboard">
           <div
-            className={`px-6 py-5 ${selectedItem === 'Dashboard' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-            onClick={() => setSelectedItem('Dashboard')}
+            className={`px-6 py-5 ${pathname === '/dashboard' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
             Dashboard
           </div>
         </Link>
 
         <Link href="/grounding">
-          {' '}
           <div
-            className={`px-7 py-5 ${selectedItem === 'Grounding' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-            onClick={() => setSelectedItem('Grounding')}
+            className={`px-7 py-5 ${pathname === '/grounding' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
             Grounding
           </div>
         </Link>
-        <Link href="/safe_place">
+        <Link href="/safe-place">
           <div
-            className={`px-7 py-5 ${selectedItem === 'Safe Place' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-            onClick={() => setSelectedItem('Safe Place')}
+            className={`px-7 py-5 ${pathname === '/safe-place' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
             Safe Place
           </div>
         </Link>
         <Link href="/trueself">
           <div
-            className={`px-7 py-5 ${selectedItem === 'Parts Map' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-            onClick={() => setSelectedItem('Parts Map')}
+            className={`px-7 py-5 ${pathname === '/trueself' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
-            {' '}
             True Self & Parts Map
           </div>
         </Link>
         <Link href="/externalized">
           <div
-            className={`px-7 py-5 ${selectedItem === 'Externalized Dialogue' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-            onClick={() => setSelectedItem('Externalized Dialogue')}
+            className={`px-7 py-5 ${pathname === '/externalized' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
             Externalized Dialogue
           </div>
         </Link>
         <Link href="/stories">
           <div
-            className={`px-7 py-5 ${selectedItem === 'Stories' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
-            onClick={() => setSelectedItem('Stories')}
+            className={`px-7 py-5 ${pathname === '/stories' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
             Stories
           </div>

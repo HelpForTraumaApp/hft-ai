@@ -37,7 +37,10 @@ export default async function DashboardPage() {
           the survey.
         </h3>
       </DashboardPanel>
-      <DashboardPanel title="My Trauma Recovery Scale Results" colSpan={2}>
+      <DashboardPanel
+        title="My Trauma Recovery Scale Results"
+        style={'col-start-1 col-end-3'}
+      >
         <div className="text-left text-md text-neutral-600 ">
           Measures current trauma symptoms. Higher score equals fewer symptoms
         </div>

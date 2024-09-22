@@ -71,7 +71,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   <SidebarDesktop />
                   <div className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
                     <div className="flex h-full w-full">
-                      <div className="relative overflow-hidden w-2/3">
+                      <div className="relative w-2/3 overflow-y-auto">
                         <Template>{children}</Template>
                       </div>
                       <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700">

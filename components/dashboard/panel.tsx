@@ -3,17 +3,17 @@ import { ReactElement } from 'react'
 interface DashboardPanelProps {
   title: string
   children: ReactElement | ReactElement[]
-  colSpan?: number
+  style?: string
 }
 
 export const DashboardPanel = ({
   title,
   children,
-  colSpan = 1
+  style = ''
 }: DashboardPanelProps) => {
   return (
     <div
-      className={`bg-white text-center rounded-xl p-8 ${colSpan > 1 ? `col-span-${colSpan}` : ''} flex flex-col`}
+      className={`bg-white text-center rounded-xl p-8 ${style} flex flex-col`}
     >
       <h2 className=" font-semibold text-2xl mx-auto min-h-[64px]">{title}</h2>
       <div className="text-center my-2">{children}</div>
