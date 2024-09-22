@@ -10,7 +10,6 @@ import { useUIState, useAIState } from 'ai/rsc'
 import { Message, Session } from '@/lib/types'
 import { usePathname, useRouter } from 'next/navigation'
 import { useScrollAnchor } from '@/lib/hooks/use-scroll-anchor'
-import Excalidraw from '@/components/excalidraw'
 import { toast } from 'sonner'
 
 export interface ChatProps extends React.ComponentProps<'div'> {
@@ -80,20 +79,13 @@ export function Chat({ id, className, session, missingKeys }: ChatProps) {
         isAtBottom={isAtBottom}
         scrollToBottom={scrollToBottom}
       /> */}
-      <div className="flex h-full">
-        <div className="w-2/3">
-          <Excalidraw />
-        </div>
-        <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700">
-          <ChatPanel
-            id={id}
-            input={input}
-            setInput={setInput}
-            isAtBottom={isAtBottom}
-            scrollToBottom={scrollToBottom}
-          />
-        </div>
-      </div>
+      <ChatPanel
+        id={id}
+        input={input}
+        setInput={setInput}
+        isAtBottom={isAtBottom}
+        scrollToBottom={scrollToBottom}
+      />
     </div>
   )
 }
