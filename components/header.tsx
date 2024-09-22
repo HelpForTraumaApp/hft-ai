@@ -9,7 +9,6 @@ import { SidebarMobile } from './sidebar-mobile'
 import { SidebarToggle } from './sidebar-toggle'
 import { ChatHistory } from './chat-history'
 import { Session } from '@/lib/types'
-
 async function UserOrLogin() {
   const session = (await auth()) as Session
   return (
@@ -22,14 +21,9 @@ async function UserOrLogin() {
           <SidebarToggle />
         </>
       ) : (
-        <Link href="/new" rel="nofollow">
-          <img src="/logo.png" alt="" width={24} height={24} />
-          {/* <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
-          <IconNextChat className="hidden size-6 mr-2 dark:block" /> */}
-        </Link>
+        <></>
       )}
       <div className="flex items-center">
-        <IconSeparator className="size-6 text-muted-foreground/50" />
         {session?.user ? (
           <UserMenu user={session.user} />
         ) : (
@@ -44,9 +38,9 @@ async function UserOrLogin() {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-start w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
-      <div className="flex items-center">
-        <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
+    <header className="sticky top-0 z-50 flex space-x-4 w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
+      <div className="flex items-center justify-between w-full">
+        <React.Suspense fallback={<div className="w-full" />}>
           <UserOrLogin />
         </React.Suspense>
       </div>
