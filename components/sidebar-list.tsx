@@ -44,16 +44,16 @@ export function SidebarList() {
         </Link>
         <Link href="/trueself">
           <div
-            className={`px-7 py-5 ${pathname === '/trueself' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+            className={`px-7 py-5 ${pathname === '/parts-map' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
-            True Self & Parts Map
+            Parts Map
           </div>
         </Link>
         <Link href="/externalized">
           <div
-            className={`px-7 py-5 ${pathname === '/externalized' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
+            className={`px-7 py-5 ${pathname === '/dialogue' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
-            Externalized Dialogue
+            Dialogue
           </div>
         </Link>
         <Link href="/stories">
