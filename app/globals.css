@@ -106,7 +106,6 @@
     background: linear-gradient(to top, #faf9fa 0%, #faf9fa00 100%);
     z-index: 1;
   }
-
 }
 
 .excalidraw .layer-ui__wrapper__top-right,
@@ -115,4 +114,58 @@
 .App-toolbar__divider,
 .App-toolbar__extra-tools-trigger {
   display: none !important;
+}
+
+.modal-overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+}
+
+.modal-overlay .modal {
+  background: white;
+  border-radius: 0.3rem;
+  max-width: 500px;
+}
+
+.modal-overlay .modal .modal-top {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px;
+}
+
+.modal-overlay .modal .modal-top button {
+  font-size: 24px;
+}
+
+.modal-overlay .modal .question-panel {
+  margin-top: 24px;
+  padding: 40px 25px 24px;
+  background-color: #fafafa;
+  border-radius: 10px;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #cacaca;
+  height: 8px;
+  z-index: 1;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  width: 24px;
+  height: 24px;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: white;
+  border: 1px solid #16c1fb;
+  border-radius: 50%;
 }
