@@ -15,6 +15,7 @@ import { getMissingKeys } from '@/app/actions'
 import { AI } from '@/lib/chat/actions'
 import { ContentPanel } from '@/components/content-panel'
 import Template from './template'
+import Chat from '@/components/chat'
 export const metadata = {
   metadataBase: process.env.VERCEL_URL
     ? new URL(`https://${process.env.VERCEL_URL}`)
@@ -75,13 +76,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                         <Template>{children}</Template>
                       </div>
                       <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700">
-                        <AI initialAIState={{ chatId: id, messages: [] }}>
-                          <ContentPanel
-                            id={id}
-                            session={session}
-                            missingKeys={missingKeys}
-                          />
-                        </AI>
+                        <Chat></Chat>
                       </div>
                     </div>
                   </div>
