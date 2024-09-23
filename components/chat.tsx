@@ -1,99 +1,40 @@
-'use client'
+"use client";
 
-import { cn } from '@/lib/utils'
-import { ChatList } from '@/components/chat-list'
-import { ChatPanel } from '@/components/chat-panel'
-import { EmptyScreen } from '@/components/empty-screen'
-import { useLocalStorage } from '@/lib/hooks/use-local-storage'
-import { useEffect, useState } from 'react'
-import { useUIState, useAIState } from 'ai/rsc'
-import { Message, Session } from '@/lib/types'
-import { usePathname, useRouter } from 'next/navigation'
-import { useScrollAnchor } from '@/lib/hooks/use-scroll-anchor'
-import Excalidraw from '@/components/excalidraw'
-import { toast } from 'sonner'
+import { useChat } from "ai/react";
 
-export interface ChatProps extends React.ComponentProps<'div'> {
-  initialMessages?: Message[]
-  id?: string
-  session?: Session
-  missingKeys: string[]
-}
-
-export function Chat({ id, className, session, missingKeys }: ChatProps) {
-  const router = useRouter()
-  const path = usePathname()
-  const [input, setInput] = useState('')
-  const [messages] = useUIState()
-  const [aiState] = useAIState()
-
-  const [_, setNewChatId] = useLocalStorage('newChatId', id)
-
-  useEffect(() => {
-    if (session?.user) {
-      if (!path.includes('chat') && messages.length === 1) {
-        window.history.replaceState({}, '', `/chat/${id}`)
-      }
-    }
-  }, [id, path, session?.user, messages])
-
-  useEffect(() => {
-    const messagesLength = aiState.messages?.length
-    if (messagesLength === 2) {
-      router.refresh()
-    }
-  }, [aiState.messages, router])
-
-  useEffect(() => {
-    setNewChatId(id)
-  })
-
-  useEffect(() => {
-    missingKeys.map(key => {
-      toast.error(`Missing ${key} environment variable!`)
-    })
-  }, [missingKeys])
-
-  const { messagesRef, scrollRef, visibilityRef, isAtBottom, scrollToBottom } =
-    useScrollAnchor()
-
+export default function Chat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    maxSteps: 3,
+  });
   return (
-    <div
-      className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]"
-      ref={scrollRef}
-    >
-      {/* <div
-        className={cn('pb-[200px] pt-4 md:pt-10', className)}
-        ref={messagesRef}
-      >
-        {messages.length ? (
-          <ChatList messages={messages} isShared={false} session={session} />
-        ) : (
-          <EmptyScreen />
-        )}
-        <div className="w-full h-px" ref={visibilityRef} />
+    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+      <div className="space-y-4">
+        {messages.map((m) => (
+          <div key={m.id} className="whitespace-pre-wrap">
+            <div>
+              <div className="font-bold">{m.role}</div>
+              <p>
+                {m.content.length > 0 ? (
+                  m.content
+                ) : (
+                  <span className="italic font-light">
+                    {"calling tool: " + m?.toolInvocations?.[0].toolName}
+                  </span>
+                )}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-      <ChatPanel
-        id={id}
-        input={input}
-        setInput={setInput}
-        isAtBottom={isAtBottom}
-        scrollToBottom={scrollToBottom}
-      /> */}
-      <div className="flex h-full">
-        <div className="w-2/3">
-          <Excalidraw />
-        </div>
-        <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700">
-          <ChatPanel
-            id={id}
-            input={input}
-            setInput={setInput}
-            isAtBottom={isAtBottom}
-            scrollToBottom={scrollToBottom}
-          />
-        </div>
-      </div>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
+          value={input}
+          placeholder="Say something..."
+          onChange={handleInputChange}
+        />
+      </form>
     </div>
-  )
+  );
 }
