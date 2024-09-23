@@ -20,12 +20,13 @@ export default function GroundingPage() {
   return (
     <div className="flex flex-col gap-4">
       <div className="bg-gray-300 text-center">Grounding</div>
-      <div className="grid 2xl:grid-cols-2 gap-4 m-10">
-        <div className=''>
+      <div className="grid 2xl:grid-cols-2 gap-10 m-10">
+        <div>
           <ReactPlayer
             url={video_url}
             controls
             width={500}
+            height={280}
           />
         </div>
         <div className="flex flex-col gap-10 p-4 bg-white ">
