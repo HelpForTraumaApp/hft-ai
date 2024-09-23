@@ -122,16 +122,8 @@ export const Dashboard = () => {
                   id="gradientColor"
                   gradientUnits="userSpaceOnUse"
                 >
-                  <stop
-                    offset="5%"
-                    stop-color="#5BC4FF"
-                    stop-opacity="1"
-                  ></stop>
-                  <stop
-                    offset="95%"
-                    stop-color="#FF5BEF"
-                    stop-opacity="1"
-                  ></stop>
+                  <stop offset="5%" stopColor="#5BC4FF" stopOpacity="1"></stop>
+                  <stop offset="95%" stopColor="#FF5BEF" stopOpacity="1"></stop>
                 </linearGradient>
               </defs>
               <XAxis
