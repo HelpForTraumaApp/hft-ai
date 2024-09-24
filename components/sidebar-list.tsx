@@ -42,7 +42,7 @@ export function SidebarList() {
             Safe Place
           </div>
         </Link>
-        <Link href="/trueself">
+        <Link href="/parts-map">
           <div
             className={`px-7 py-5 ${pathname === '/parts-map' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
