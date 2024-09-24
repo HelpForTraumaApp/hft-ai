@@ -49,7 +49,7 @@ export function SidebarList() {
             Parts Map
           </div>
         </Link>
-        <Link href="/externalized">
+        <Link href="/dialogue">
           <div
             className={`px-7 py-5 ${pathname === '/dialogue' ? 'bg-sky-100 border-l-4 border-sky-600' : ''} text-lg font-semibold`}
           >
