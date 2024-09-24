@@ -1,6 +1,7 @@
 'use client'
 
 import { useChat } from 'ai/react'
+import Typewriter from './typewriter'
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
@@ -18,7 +19,11 @@ export default function Chat() {
                   <div className="font-bold">
                     {m.role === 'assistant' ? 'AI Guide' : 'You'}
                   </div>
-                  <p>{m.content}</p>
+                  {m.role !== 'assistant' ? (
+                    <p>{m.content}</p>
+                  ) : (
+                    <Typewriter text={m.content}></Typewriter>
+                  )}
                 </div>
               </div>
             )
