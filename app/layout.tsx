@@ -66,7 +66,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <div className="flex flex-col min-h-screen">
             <Header />
-            <main className="flex flex-col flex-1 bg-muted/50">
+            <main className="flex flex-col flex-1 bg-[#eff0f4]">
               {session ? (
                 <div className="relative flex h-[calc(100vh_-_theme(spacing.16))] overflow-hidden">
                   <SidebarDesktop />
