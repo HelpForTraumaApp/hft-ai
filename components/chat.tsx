@@ -45,8 +45,11 @@ export default function Chat() {
   }, [pathname])
 
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      <div className="space-y-4">
+    <div className="flex flex-col w-full max-w-md mx-auto h-full">
+      <div
+        className="py-4 overflow-scroll"
+        style={{ maxHeight: 'calc(100vh - 20px)' }}
+      >
         {messages.map(m => {
           if (m.content?.length > 0) {
             return (
