@@ -20,7 +20,7 @@ const Typewriter: React.FC<TypewriterProps> = ({ text }) => {
       } else {
         clearInterval(interval)
       }
-    }, 25)
+    }, 15)
 
     return () => clearInterval(interval)
   }, [text, index])
