@@ -1,6 +1,6 @@
 'use client'
 
-import { useChat } from 'ai/react'
+import { useChat, useAssistant } from 'ai/react'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import Typewriter from './typewriter'
@@ -25,13 +25,45 @@ const initialMessages: Record<Pathname, string> = {
     'Welcome to your Externalized Dialogue page. This area is set up for you to get to know your Parts better and to have conversations between your True Self and a Part.  By giving voice to your Parts, you can express their thoughts, needs, and emotions in a safe and constructive way and allow True Self to take the lead and relieve the Part’s burdens. Externalized Dialogue can be used to help make everyday decisions, resolve inner conflicts, or better understand a Part that got stuck in a past experience and needs to be relieved now in the present day. Explore these interactions at your own pace, as each Part has something valuable to share. Externalized Dialogue is a useful tool for life.'
 }
 
+const exampleMessages = [
+  {
+    heading: 'Grounding',
+    subheading:
+      ' Learn about grounding techniques to stay present and calm in stressful moments.',
+    message: ` Learn about grounding techniques to stay present and calm in stressful moments.`
+  },
+  {
+    heading: 'Safe Place',
+    subheading: 'Create a personalized mental safe space to use for comfort.',
+    message: 'Create a personalized mental safe space to use for comfort.'
+  },
+  {
+    heading: 'True Self and Parts Map',
+    subheading:
+      'Explore and map True Self and different Parts of yourself to better understand your inner landscape.',
+    message: `Explore and map True Self and different Parts of yourself to better understand your inner landscape.`
+  },
+  {
+    heading: 'Externalized Dialogue',
+    subheading: `Engage in conversations between your True Self and different Parts to gain insight and balance.`,
+    message: `Engage in conversations between your True Self and different Parts to gain insight and balance.`
+  }
+]
+
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
-    useChat({
-      maxSteps: 3
-    })
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    setMessages,
+    append
+  } = useChat({
+    maxSteps: 3
+  })
 
   const pathname = usePathname() as Pathname
+
   useEffect(() => {
     const messageContent = initialMessages[pathname]
 
@@ -46,28 +78,52 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col w-full max-w-md mx-auto h-full">
-      <div
-        className="py-4 overflow-scroll"
-        style={{ maxHeight: 'calc(100vh - 20px)' }}
-      >
-        {messages.map(m => {
-          if (m.content?.length > 0) {
-            return (
-              <div key={m.id} className="whitespace-pre-wrap">
-                <div>
-                  <div className="font-bold">
-                    {m.role === 'assistant' ? 'AI Guide' : 'You'}
+      <div className="flex flex-col justify-between h-full pt-4 pb-20  ">
+        <div
+          className="space-y-5 overflow-scroll"
+          style={{ maxHeight: 'calc(100vh - 20px)' }}
+        >
+          {messages.map(m => {
+            if (m.content?.length > 0) {
+              return (
+                <div key={m.id} className="whitespace-pre-wrap">
+                  <div>
+                    <div className="font-bold">
+                      {m.role === 'assistant' ? 'AI Guide' : 'You'}
+                    </div>
+                    {m.role !== 'assistant' ? (
+                      <p>{m.content}</p>
+                    ) : (
+                      <Typewriter text={m.content}></Typewriter>
+                    )}
                   </div>
-                  {m.role !== 'assistant' ? (
-                    <p>{m.content}</p>
-                  ) : (
-                    <Typewriter text={m.content}></Typewriter>
-                  )}
+                </div>
+              )
+            }
+          })}
+        </div>
+        <div className="mb-4 grid grid-cols-2 gap-2 px-4 sm:px-0">
+          {messages.length === 1 &&
+            exampleMessages.map((example, index) => (
+              <div
+                key={example.heading}
+                className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
+                  index > 1 && 'hidden md:block'
+                }`}
+                onClick={() =>
+                  append({
+                    role: 'user',
+                    content: example.message
+                  })
+                }
+              >
+                <div className="text-sm font-semibold">{example.heading}</div>
+                <div className="text-sm text-zinc-600">
+                  {example.subheading}
                 </div>
               </div>
-            )
-          }
-        })}
+            ))}
+        </div>
       </div>
       <form onSubmit={handleSubmit}>
         <input
