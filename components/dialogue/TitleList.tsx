@@ -1,5 +1,5 @@
 // components/TitleList.tsx
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
@@ -18,7 +18,7 @@ import { Swiper as SwiperClass } from 'swiper';
 
 type TitleListProps = {
   titles: TitleProps[];
-  selectedTitle: TitleProps;
+  selectedTitle?: TitleProps;
   handleSelectedTitle: (item: TitleProps) => void;
   handleEditTitle: (item: TitleProps) => void;
   handleDeleteTitle: (item: TitleProps) => void;
@@ -41,7 +41,7 @@ const TitleList: FC<TitleListProps> = (props) => {
   };
 
   return (
-    <div className="flex items-center p-4 border-b gap-2">
+    <div className="flex items-center p-4 border-b gap-2 justify-center">
       <div
         className='flex px-4 py-3 items-center justify-center cursor-pointer border border-white rounded shadow-md shadow-black'
         onClick={pre}
@@ -60,16 +60,25 @@ const TitleList: FC<TitleListProps> = (props) => {
           <SwiperSlide key={index} className="w-auto">
             <div className='flex rounded-sm border border-white cursor-pointer w-full'>
               <span
-                className={`w-full p-2 ${selectedTitle.id === item.id ? 'bg-slate-300 text-white' : 'bg-white text-black'}`}
+                className={`w-full p-2 ${selectedTitle?.id === item.id ? 'bg-slate-300 text-white' : 'bg-white text-black'}`}
                 onClick={() => handleSelectedTitle(item)}
+                role="button"
               >
                 {item.title}
               </span>
-              <div className='p-3 bg-[#16c1fb]' onClick={() => handleEditTitle(item)}>
-                <FiEdit className='bg-[#16c1fb] text-white'/>
+              <div
+                className='p-3 bg-[#16c1fb]'
+                onClick={() => handleEditTitle(item)}
+                role="button"
+              >
+                <FiEdit className='text-white' />
               </div>
-              <div className='p-3 bg-red-500' onClick={() => handleDeleteTitle(item)}>
-                <IoClose className='bg-red-500 text-slate-700'/>
+              <div
+                className='p-3 bg-red-500'
+                onClick={() => handleDeleteTitle(item)}
+                role="button"
+              >
+                <IoClose className='text-slate-700' />
               </div>
             </div>
           </SwiperSlide>

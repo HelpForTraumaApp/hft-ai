@@ -10,7 +10,7 @@ interface MsgComponentProps {
     msg: MessageProps;
     deleteMessage: (id: string) => void;
     updateMessage: (id: string, updatedMessage: string) => void;
-    ghost: string;
+    ghost?: string;
 }
 
 const MessageComponent: FC<MsgComponentProps> = (props) => {
