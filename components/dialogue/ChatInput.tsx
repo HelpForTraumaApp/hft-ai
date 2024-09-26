@@ -40,6 +40,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
         <div className='relative rounded overflow-hidden shadow-xl'>
           <textarea
             rows={1}
+            defaultValue=''
             className='w-full p-2 resize-y focus:outline-none pr-6'
             onChange={(e) => setMessageSelf(e.target.value)}
           />
@@ -71,6 +72,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
         <div className='relative rounded overflow-hidden shadow-xl'>
           <textarea
             rows={1}
+            defaultValue=''
             className='w-full p-2 resize-y focus:outline-none pr-6'
             onChange={(e) => setMessageGhost(e.target.value)}
           />

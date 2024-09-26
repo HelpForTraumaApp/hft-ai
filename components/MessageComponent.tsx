@@ -33,6 +33,7 @@ const MessageComponent: FC<MsgComponentProps> = (props) => {
                     </p>
                     {isEditing ? (
                         <textarea
+                            defaultValue={msg.msgData}
                             className={`p-1 border-slate-200 border focus:outline-none rounded-sm ${msg.isSelf ? 'bg-[#563D7C]' : 'bg-white'}`}
                             onChange={(e) => setEditedMessage(e.target.value)}
                         >
@@ -40,11 +41,10 @@ const MessageComponent: FC<MsgComponentProps> = (props) => {
                         </textarea>
                     ) : (
                         <textarea
+                            value={msg.msgData}
                             readOnly
                             className={`p-1 border-slate-500 border focus:outline-none rounded-sm ${msg.isSelf ? 'bg-[#563D7C]' : 'bg-white'}`}
-                        >
-                            {msg.msgData}
-                        </textarea>
+                        />
                     )}
 
                     <div className="absolute right-0 top-0">
