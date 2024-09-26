@@ -9,6 +9,7 @@ import { eq } from 'drizzle-orm';
 const insertDialogueTitleSchema = z.object({
     ghost: z.string(),
     title: z.string(),
+    user_id: z.string(),
 });
 
 const updateDialogueTitleSchema = z.object({
@@ -21,17 +22,17 @@ const deleteDialogueTitleSchema = z.object({
     id: z.string(),
 });
 
-const selectDialogueTitleByIdSchema = z.object({
-    id: z.string(),
-});
+const selectAllDialogueTitlesSchema = z.object({
+    user_id: z.string(),
+})
 
-export const createDialogueTitle = async (input: { ghost: string; title: string }) => {
+export const createDialogueTitle = async (input: { ghost: string; title: string; user_id: string }) => {
     try {
         const data = insertDialogueTitleSchema.parse(input);
 
         const [newDialogueTitle] = await db
             .insert(dialogueTitle)
-            .values({ ghost: data.ghost, title: data.title })
+            .values({ ghost: data.ghost, title: data.title, user_id: data.user_id })
             .returning();
         return newDialogueTitle;
     } catch (error) {
@@ -74,27 +75,15 @@ export const deleteDialogueTitle = async (input: { id: string }) => {
     }
 };
 
-export const selectAllDialogueTitles = async () => {
+export const selectAllDialogueTitles = async (input: {user_id: string}) => {
     try {
-        const dialogueTitles = await db.select().from(dialogueTitle);
+        const data = selectAllDialogueTitlesSchema.parse(input);
+
+        const dialogueTitles = await db
+        .select()
+        .from(dialogueTitle)
+        .where(eq(dialogueTitle.user_id, data.user_id));
         return dialogueTitles;
-    } catch (error) {
-        return error instanceof Error && error.message.length > 0
-            ? error.message
-            : 'Error, please try again.';
-    }
-};
-
-export const selectDialogueTitleById = async (input: { id: string }) => {
-    try {
-        const data = selectDialogueTitleByIdSchema.parse(input);
-
-        const [dialogue] = await db
-            .select()
-            .from(dialogueTitle)
-            .where(eq(dialogueTitle.id, data.id));
-
-        return dialogue || 'Dialogue title not found.';
     } catch (error) {
         return error instanceof Error && error.message.length > 0
             ? error.message

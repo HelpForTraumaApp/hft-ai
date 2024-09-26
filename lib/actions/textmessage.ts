@@ -3,13 +3,14 @@
 import { db } from '../db';
 import { textmessage } from '../db/schema/textmessage';
 import { z } from 'zod';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 
 // Schema validation for input data
 const insertTextMessageSchema = z.object({
     title_id: z.string(),
     isSelf: z.boolean(),
     message: z.string(),
+    user_id: z.string(),
 });
 
 const updateTextMessageSchema = z.object({
@@ -23,14 +24,15 @@ const deleteTextMessageSchema = z.object({
 
 const selectTextMessagesByTitleIdSchema = z.object({
     title_id: z.string(),
+    user_id: z.string(),
 });
 
-export const createTextMessage = async (input: { title_id: string; isSelf: boolean; message: string }) => {
+export const createTextMessage = async (input: { title_id: string; isSelf: boolean; message: string; user_id: string }) => {
     try {
         const data = insertTextMessageSchema.parse(input);
         const [newDialogueTitle] = await db
             .insert(textmessage)
-            .values({ title_id: data.title_id, isSelf: data.isSelf, msgData: data.message })
+            .values({ title_id: data.title_id, isSelf: data.isSelf, msgData: data.message, user_id: data.user_id })
             .returning();
         return newDialogueTitle;
     } catch (error) {
@@ -73,14 +75,14 @@ export const deleteTextMessage = async (input: { id: string }) => {
     }
 };
 
-export const selectTextMessagesByTitleId = async (input: { title_id: string }) => {
+export const selectTextMessagesByTitleId = async (input: { title_id: string; user_id: string }) => {
     try {
         const data = selectTextMessagesByTitleIdSchema.parse(input);
 
         const messages = await db
             .select()
             .from(textmessage)
-            .where(eq(textmessage.title_id, data.title_id));
+            .where(and(eq(textmessage.title_id, data.title_id), eq(textmessage.user_id, data.user_id)));
 
         return messages;
     } catch (error) {

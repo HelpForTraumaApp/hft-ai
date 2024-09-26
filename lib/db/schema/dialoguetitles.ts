@@ -6,8 +6,9 @@ export const dialogueTitle = pgTable(
   {
     id: varchar('id', { length: 191 })
       .primaryKey()
-      .$defaultFn(() => nanoid()), 
-    ghost: varchar('ghost', { length: 191 }).notNull(), 
+      .$defaultFn(() => nanoid()),
+    user_id: varchar('user_id').notNull(),
+    ghost: varchar('ghost', { length: 191 }).notNull(),
     title: varchar('title', { length: 255 }).notNull(),
   }
 );

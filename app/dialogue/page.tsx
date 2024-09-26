@@ -5,7 +5,6 @@ import { redirect } from 'next/navigation'
 
 export default async function DialoguePage() {
   const session = (await auth()) as Session
-
   if (!session) {
     redirect('/')
   }

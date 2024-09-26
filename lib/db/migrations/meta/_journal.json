@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1719997972944,
-      "tag": "0000_yielding_bloodaxe",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1727233416446,
-      "tag": "0001_aberrant_sheva_callister",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1727268299400,
-      "tag": "0002_aspiring_roulette",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1727293802039,
-      "tag": "0003_simple_obadiah_stane",
+      "when": 1727309746944,
+      "tag": "0000_condemned_stature",
       "breakpoints": true
     }
   ]

@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { createTextMessage, updateTextMessage, deleteTextMessage, selectTextMessagesByTitleId } from '@/lib/actions/textmessage';
+import { getAuth } from '@/lib/auth';
 
 export async function POST(req: Request) {
+    const user_id = await getAuth();
     try {
-        const body = await req.json();
+        let body = await req.json();
+        body.user_id = user_id;
         const data = await createTextMessage(body);
         return NextResponse.json({ data });
     } catch (error) {
@@ -24,17 +27,22 @@ export async function PUT(req: Request) {
 }
 
 export async function GET(req: Request) {
-    try {
-        const { searchParams } = new URL(req.url);
-        const title_id = searchParams.get('title_id');
-        if (!title_id) {
-            return NextResponse.json({ message: 'title_id is required' }, { status: 400 });
+    const user_id = await getAuth();
+    if (user_id !=null) {
+        try {
+            const { searchParams } = new URL(req.url);
+            const title_id = searchParams.get('title_id');
+            if (!title_id) {
+                return NextResponse.json({ message: 'title_id is required' }, { status: 400 });
+            }
+            const data = await selectTextMessagesByTitleId({title_id, user_id});
+            return NextResponse.json({ data });
+        } catch (error) {
+            console.error(error);
+            return NextResponse.json({ message: 'Failed to get text message.' }, { status: 400 });
         }
-        const data = await selectTextMessagesByTitleId({title_id});
-        return NextResponse.json({ data });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: 'Failed to get text message.' }, { status: 400 });
+    } else {
+        return NextResponse.json({ message: 'Invalid User.' }, { status: 400 });
     }
 }
 
