@@ -25,39 +25,30 @@ const initialMessages: Record<Pathname, string> = {
     'Welcome to your Externalized Dialogue page. This area is set up for you to get to know your Parts better and to have conversations between your True Self and a Part.  By giving voice to your Parts, you can express their thoughts, needs, and emotions in a safe and constructive way and allow True Self to take the lead and relieve the Part’s burdens. Externalized Dialogue can be used to help make everyday decisions, resolve inner conflicts, or better understand a Part that got stuck in a past experience and needs to be relieved now in the present day. Explore these interactions at your own pace, as each Part has something valuable to share. Externalized Dialogue is a useful tool for life.'
 }
 
-const exampleMessages = {
-  '/dashboard': [
-    'Learn about grounding techniques to stay present and calm in stressful moments.',
-    'Create a personalized mental safe space to use for comfort.',
-    'Explore and map True Self and different Parts of yourself to better understand your inner landscape.',
-    'Engage in conversations between your True Self and different Parts to gain insight and balance.'
-  ],
-
-  '/grounding': [
-    'What are grounding techniques?',
-    'How does grounding reduce anxiety?',
-    'Why is sensory grounding effective?',
-    'Can grounding help dissociation?'
-  ],
-  '/safe-place': [
-    'How do I create a Safe Place?',
-    'What makes a place feel safe?',
-    'How can Safe Place reduce stress?',
-    'What senses engage in Safe Place?'
-  ],
-  '/parts-map': [
-    'What is the True Self?',
-    'Explain Parts in trauma recovery.',
-    'How does Parts Map help healing?',
-    'How to identify True Self qualities?'
-  ],
-  '/dialogue': [
-    'How does Externalized Dialogue work?',
-    'What is victim mythology?',
-    'How can dialogue heal trauma?',
-    'Can parts communicate through writing?'
-  ]
-}
+const exampleMessages = [
+  {
+    heading: 'Grounding',
+    subheading:
+      ' Learn about grounding techniques to stay present and calm in stressful moments.',
+    message: ` Learn about grounding techniques to stay present and calm in stressful moments.`
+  },
+  {
+    heading: 'Safe Place',
+    subheading: 'Create a personalized mental safe space to use for comfort.',
+    message: 'Create a personalized mental safe space to use for comfort.'
+  },
+  {
+    heading: 'True Self and Parts Map',
+    subheading:
+      'Explore and map True Self and different Parts of yourself to better understand your inner landscape.',
+    message: `Explore and map True Self and different Parts of yourself to better understand your inner landscape.`
+  },
+  {
+    heading: 'Externalized Dialogue',
+    subheading: `Engage in conversations between your True Self and different Parts to gain insight and balance.`,
+    message: `Engage in conversations between your True Self and different Parts to gain insight and balance.`
+  }
+]
 
 export default function Chat() {
   const {
@@ -113,21 +104,23 @@ export default function Chat() {
         </div>
         <div className="mb-4 grid grid-cols-2 gap-2 px-4 sm:px-0">
           {messages.length === 1 &&
-            exampleMessages[pathname] &&
-            exampleMessages[pathname].map((message, index) => (
+            exampleMessages.map((example, index) => (
               <div
-                key={message}
+                key={example.heading}
                 className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
                   index > 1 && 'hidden md:block'
                 }`}
                 onClick={() =>
                   append({
                     role: 'user',
-                    content: message
+                    content: example.message
                   })
                 }
               >
-                <div className="text-sm font-semibold">{message}</div>
+                <div className="text-sm font-semibold">{example.heading}</div>
+                <div className="text-sm text-zinc-600">
+                  {example.subheading}
+                </div>
               </div>
             ))}
         </div>
