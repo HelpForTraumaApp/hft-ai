@@ -54,6 +54,9 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
+        },
+        eventmodal_button_color: {
+          DEFAULT: 'rgba(22, 193, 251, 0.05)'
         }
       },
       borderRadius: {
@@ -69,11 +72,16 @@ module.exports = {
         'accordion-up': {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' }
+        },
+        'fade-show': {
+          from: { opacity: '0' },
+          to: { opacity: '0.5' }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out'
+        'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-show': 'fade-show 0.15s linear opacity'
       }
     }
   },

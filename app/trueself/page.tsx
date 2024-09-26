@@ -9,7 +9,5 @@ export default async function TrueSelfPage() {
     redirect('/')
   }
 
-  return (
-    <div className="bg-gray-300 text-center">True Self & Parts Map Place</div>
-  )
+  return <div className="bg-gray-300 text-center">Parts Map</div>
 }
