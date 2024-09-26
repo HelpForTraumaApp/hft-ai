@@ -1,7 +1,7 @@
 'use client'
 import RGB_Color_Icont from '@/app/assets/icons/rgb_color_icon.svg'
 import Image from 'next/image'
-import ColorModal from '../modals/ColorModal'
+import { ColorModal } from '@/components/modals/colormodal'
 import { useState } from 'react'
 import { AddEventModal, colorData } from '@/components/modals/addeventmodal'
 
