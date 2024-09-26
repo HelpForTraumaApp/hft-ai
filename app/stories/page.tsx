@@ -1,4 +1,5 @@
 import { auth } from '@/auth'
+import { Stories } from '@/components/stories/stories'
 import { Session } from '@/lib/types'
 import { redirect } from 'next/navigation'
 
@@ -8,6 +9,9 @@ export default async function StoriesPage() {
   if (!session) {
     redirect('/')
   }
-
-  return <div className="bg-gray-300 text-center">Stories page</div>
+  return (
+    <div>
+      <Stories />
+    </div>
+  )
 }

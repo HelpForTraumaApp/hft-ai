@@ -10,8 +10,6 @@ export const maxDuration = 30
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json()
-    console.log('Received messages:', messages)
-    console.log('api-key', process.env.OPENAI_API_KEY);
 
     const result = await streamText({
       model: openai('gpt-3.5-turbo'),
@@ -39,10 +37,8 @@ export async function POST(req: Request) {
         })
       }
     })
-
     return result.toDataStreamResponse()
   } catch (error) {
-    console.error('Error in POST request:', error)
     return new Response('Internal Server Error', { status: 500 })
   }
 }

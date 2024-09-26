@@ -118,7 +118,7 @@ export const HomePage = () => {
               {mainNavs.map((nav, index) => (
                 <li
                   key={index}
-                  className={`text-[24px] font-semibold hover:text-[#74549d] ${activeNav == nav.id ? ' text-[#74549d]' : ''}`}
+                  className={`text-2xl font-semibold hover:text-[#74549d] ${activeNav == nav.id ? ' text-[#74549d]' : ''}`}
                 >
                   <button onClick={() => handleClickNavigation(nav.id)}>
                     {nav.label}
