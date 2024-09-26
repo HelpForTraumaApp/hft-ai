@@ -85,7 +85,6 @@ export const TextDialogue = () => {
 
         const data = await response.json();
         if (data.result) {
-          console.log(data.result);
           fetchDialogueTitles(true);
           setSelectedTitle(await data.result);
         } else {
@@ -105,7 +104,6 @@ export const TextDialogue = () => {
         });
 
         const data = await response.json();
-        console.log(data.result);
         if (data.result == 0) {
           fetchDialogueTitles(true);
         } else {
@@ -133,7 +131,6 @@ export const TextDialogue = () => {
       });
 
       const data = await response.json();
-      console.log(data.result);
       if (data.result) {
         fetchDialogueTitles(true);
       } else {
@@ -155,7 +152,6 @@ export const TextDialogue = () => {
       });
 
       const data = await response.json();
-      console.log(data.data);
       if (data.data && selectedTitle) {
         fetchMessages(selectedTitle.id);
       } else {
@@ -219,7 +215,6 @@ export const TextDialogue = () => {
         });
 
         const data = await response.json();
-        console.log(data.result);
         if (data.result == 0) {
           fetchDialogueTitles(true);
         } else {

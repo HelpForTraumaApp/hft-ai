@@ -1,5 +1,5 @@
 // components/ChatInput.tsx
-import { useState, FC } from 'react';
+import { useState, FC, useEffect } from 'react';
 import { IoIosSend } from "react-icons/io";
 import { FiEdit } from 'react-icons/fi';
 
@@ -15,6 +15,13 @@ const ChatInput: FC<ChatInputProps> = (props) => {
   const [messageGhost, setMessageGhost] = useState('');
   const [ghostUpdate, setGhostUpdate] = useState(false);
   const [tempGhost, setTempGhost] = useState('');
+  const [isSent, setIsSent] = useState(false);
+
+  useEffect(() => {
+    setIsSent(false);
+    setMessageSelf('');
+    setMessageGhost('');
+  }, [isSent == true]);
 
   const handleSendMessage = (isSelf: boolean) => {
     if (isSelf) {
@@ -22,6 +29,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
     } else {
       sendNewMessage(isSelf, messageGhost);
     }
+    setIsSent(true);
   };
 
   const handleGhostName = () => {
@@ -40,7 +48,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
         <div className='relative rounded overflow-hidden shadow-xl'>
           <textarea
             rows={1}
-            defaultValue=''
+            value={messageSelf}
             className='w-full p-2 resize-y focus:outline-none pr-6'
             onChange={(e) => setMessageSelf(e.target.value)}
           />
@@ -72,7 +80,7 @@ const ChatInput: FC<ChatInputProps> = (props) => {
         <div className='relative rounded overflow-hidden shadow-xl'>
           <textarea
             rows={1}
-            defaultValue=''
+            value={messageGhost}
             className='w-full p-2 resize-y focus:outline-none pr-6'
             onChange={(e) => setMessageGhost(e.target.value)}
           />
