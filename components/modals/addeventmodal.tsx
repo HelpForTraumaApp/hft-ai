@@ -1,6 +1,6 @@
 import Up_Icon from '@/app/assets/icons/up_icon.svg'
 import Down_Icon from '@/app/assets/icons/down_icon.svg'
-import { ColorModal } from './colorModal'
+import { ColorModal } from './colormodal'
 import { useEffect, useState } from 'react'
 import { EventInfoType } from '@/components/stories/stories'
 
