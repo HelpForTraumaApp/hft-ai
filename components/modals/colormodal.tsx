@@ -10,7 +10,7 @@ interface ColorModalProps {
   colorData: string[]
 }
 
-export const ColorModal = ({
+const ColorModal = ({
   onClose,
   selectColor,
   colorData
@@ -51,3 +51,5 @@ export const ColorModal = ({
     </>
   )
 }
+
+export default ColorModal;
