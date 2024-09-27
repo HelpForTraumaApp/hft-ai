@@ -1,4 +1,3 @@
-import { EventType } from '../modals/editStoryModal'
 import Close_Icon from '@/app/assets/icons/close_white_icon.svg'
 import Edit_Icon from '@/app/assets/icons/edit_icon.svg'
 import Image from 'next/image'

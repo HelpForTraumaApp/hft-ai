@@ -76,7 +76,6 @@ export const Stories = () => {
   }
 
   const handleSaveEvent = (eventInfo: EventInfo, index: number) => {
-    console.log(eventInfo, index)
     const newEventList = [...eventList]
 
     if (index == -1) {

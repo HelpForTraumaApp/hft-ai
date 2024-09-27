@@ -1,7 +1,6 @@
 'use client'
 import CloseIcon from '@/app/assets/icons/close_icon.svg'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 import Check_Icon from '@/app/assets/icons/check_icon.svg'
 import { colorData } from './editStoryModal'
 
