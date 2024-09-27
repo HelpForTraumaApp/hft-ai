@@ -115,7 +115,6 @@ export const PartMap = () => {
     contentList[selectedIndex].title = name
     contentList[selectedIndex].image = await getImageFromElements(elements)
 
-    setContents(contentList)
     localStorage.setItem('excaliDrawPartsMap', JSON.stringify(contentList))
   }
 
