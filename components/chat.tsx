@@ -3,6 +3,7 @@
 import { useChat } from 'ai/react'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
+import { useAISidebar } from '@/lib/hooks/use-ai-sidebar'
 import Typewriter from './typewriter'
 
 type Pathname =
@@ -11,6 +12,7 @@ type Pathname =
   | '/safe-place'
   | '/parts-map'
   | '/dialogue'
+  | '/stories'
 
 const initialMessages: Record<Pathname, string> = {
   '/dashboard':
@@ -22,7 +24,9 @@ const initialMessages: Record<Pathname, string> = {
   '/parts-map':
     'Welcome to your True Self and Parts Map page. This is where you’ll become more aware of your True Self and Parts. Each Part represents a unique aspect of your emotions, thoughts, feelings or behaviors. They all have a good intention and were needed at some point to aid in your survival. Some of these Parts are hurt, stuck or left behind in past experiences.  By identifying and mapping your Parts, you can gain deeper insight into how they interact with True Self and each other and influence your well-being. Take your time as you create your map. This map is dynamic and can change as you learn more in your journey toward healing.',
   '/dialogue':
-    'Welcome to your Externalized Dialogue page. This area is set up for you to get to know your Parts better and to have conversations between your True Self and a Part.  By giving voice to your Parts, you can express their thoughts, needs, and emotions in a safe and constructive way and allow True Self to take the lead and relieve the Part’s burdens. Externalized Dialogue can be used to help make everyday decisions, resolve inner conflicts, or better understand a Part that got stuck in a past experience and needs to be relieved now in the present day. Explore these interactions at your own pace, as each Part has something valuable to share. Externalized Dialogue is a useful tool for life.'
+    'Welcome to your Externalized Dialogue page. This area is set up for you to get to know your Parts better and to have conversations between your True Self and a Part.  By giving voice to your Parts, you can express their thoughts, needs, and emotions in a safe and constructive way and allow True Self to take the lead and relieve the Part’s burdens. Externalized Dialogue can be used to help make everyday decisions, resolve inner conflicts, or better understand a Part that got stuck in a past experience and needs to be relieved now in the present day. Explore these interactions at your own pace, as each Part has something valuable to share. Externalized Dialogue is a useful tool for life.',
+  '/stories':
+    "Sometimes stressful life stories can feel like you can only remember them in “bits and pieces” out of order with no beginning, middle or end. You might not even recall parts of the event. In a Graphic Narrative the story is organized using the ITR components and it helps the whole brain to grasp there is a beginning, middle and end to every event. The event can now be time-stamped and put in sequential order. The memory will then be reconsolidated and stored in the brain logically and emotionally as past history. The ITR Graphic Narrative® is a simple 3-step process: 1) Draw images of a stressful life story from an observer (third person) perspective. It is perfectly normal to have “fragments” of the memory. This is how your brain and body stored the stressful experience. 2) Put words to the story and include the non-verbal body sensations, thoughts and feelings. Organize the story according to the ITR components giving it a beginning, middle, and end. 3) Read the story out loud and record it. Watch the recorded story played back as a Compassionate Witness. This will help the whole brain to see the event is over once and for all and the story will be understood by the brain as in the past! Having an END to your stressful life stories will allow you to live in the present and function better in present-day life. Start by creating a 'Title' slide, naming your story"
 }
 
 const exampleMessages = {
@@ -113,6 +117,24 @@ const exampleMessages = {
       heading: 'Communication through Writing',
       message: 'Can parts communicate through writing?'
     }
+  ],
+  '/stories': [
+    {
+      heading: 'How to Draw Yourself Before the Traumatic Event',
+      message: 'How do I draw myself before the traumatic event?'
+    },
+    {
+      heading: 'Representing the Startle Moment in Your Drawing',
+      message: 'How do I represent the startle moment in my drawing?'
+    },
+    {
+      heading: 'Illustrating the Flight or Fight Response',
+      message: 'How do I illustrate the flight or fight response?'
+    },
+    {
+      heading: 'Depicting the Freeze Response in Your Narrative',
+      message: 'How do I depict the freeze response in my narrative?'
+    }
   ]
 }
 
@@ -132,6 +154,8 @@ export default function Chat() {
 
   const endOfMessagesRef = useRef<HTMLDivElement | null>(null)
 
+  const { isAISidebarOpen } = useAISidebar()
+
   useEffect(() => {
     const messageContent = initialMessages[pathname]
 
@@ -150,8 +174,12 @@ export default function Chat() {
   }, [messages])
 
   return (
-    <div className="flex flex-col w-full max-w-md mx-auto h-full">
-      <div className="flex flex-col justify-between h-full pt-4 pb-20  ">
+    <div
+      className={`z-30 border-r bg-muted w-[600px] transition-transform duration-300 ease-in-out ${
+        isAISidebarOpen ? 'translate-x-0' : '-translate-x-full hidden'
+      }`}
+    >
+      <div className="flex flex-col justify-between h-full pt-4 pb-5 ">
         <div
           className="space-y-5 overflow-scroll"
           style={{ maxHeight: 'calc(100vh - 20px)' }}
@@ -176,36 +204,38 @@ export default function Chat() {
           })}
           <div ref={endOfMessagesRef} />
         </div>
-        <div className="mb-4 grid grid-cols-2 gap-2 px-4 sm:px-0">
-          {messages.length === 1 &&
-            exampleMessages[pathname] &&
-            exampleMessages[pathname].map((example, index) => (
-              <div
-                key={example.heading}
-                className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
-                  index > 1 && 'hidden md:block'
-                }`}
-                onClick={() =>
-                  append({
-                    role: 'user',
-                    content: example.message
-                  })
-                }
-              >
-                <div className="text-sm font-semibold">{example.heading}</div>
-                <div className="text-sm text-zinc-600">{example.message}</div>
-              </div>
-            ))}
+        <div className="flex flex-col gap-5">
+          <div className="grid grid-cols-2 gap-2">
+            {messages.length === 1 &&
+              exampleMessages[pathname] &&
+              exampleMessages[pathname].map((example, index) => (
+                <div
+                  key={example.heading}
+                  className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
+                    index > 1 && 'hidden md:block'
+                  }`}
+                  onClick={() =>
+                    append({
+                      role: 'user',
+                      content: example.message
+                    })
+                  }
+                >
+                  <div className="text-sm font-semibold">{example.heading}</div>
+                  <div className="text-sm text-zinc-600">{example.message}</div>
+                </div>
+              ))}
+          </div>
+          <form onSubmit={handleSubmit}>
+            <input
+              className="w-full max-w-md p-2 border border-gray-300 rounded shadow-xl"
+              value={input}
+              placeholder="Say something..."
+              onChange={handleInputChange}
+            />
+          </form>
         </div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
-        />
-      </form>
     </div>
   )
 }

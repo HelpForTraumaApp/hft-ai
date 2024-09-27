@@ -1,31 +1,32 @@
 import * as React from 'react'
 import Link from 'next/link'
-
 import { auth } from '@/auth'
 import { Button } from '@/components/ui/button'
-import { IconNextChat, IconSeparator } from '@/components/ui/icons'
 import { UserMenu } from '@/components/user-menu'
 import { SidebarMobile } from './sidebar-mobile'
 import { SidebarToggle } from './sidebar-toggle'
 import { ChatHistory } from './chat-history'
 import { Session } from '@/lib/types'
+import AISidebarToggle from '@/components/ai-sidebar-toggle'
+
 async function UserOrLogin() {
   const session = (await auth()) as Session
   return (
     <>
-      {session?.user ? (
+      {session?.user && (
         <>
           <SidebarMobile>
             <ChatHistory userId={session.user.id} />
           </SidebarMobile>
           <SidebarToggle />
         </>
-      ) : (
-        <></>
       )}
       <div className="flex items-center">
         {session?.user ? (
-          <UserMenu user={session.user} />
+          <div className="flex items-center gap-12">
+            <AISidebarToggle />
+            <UserMenu user={session.user} />
+          </div>
         ) : (
           <Button variant="link" asChild className="-ml-2">
             <Link href="/login">Login</Link>
