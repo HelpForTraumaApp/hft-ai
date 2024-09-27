@@ -1,8 +1,8 @@
 'use client'
 
-import { useChat, useAssistant } from 'ai/react'
+import { useChat } from 'ai/react'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Typewriter from './typewriter'
 
 type Pathname =
@@ -130,6 +130,8 @@ export default function Chat() {
 
   const pathname = usePathname() as Pathname
 
+  const endOfMessagesRef = useRef<HTMLDivElement | null>(null)
+
   useEffect(() => {
     const messageContent = initialMessages[pathname]
 
@@ -141,6 +143,11 @@ export default function Chat() {
       }
     ])
   }, [pathname])
+
+  useEffect(() => {
+    if (endOfMessagesRef.current)
+      endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   return (
     <div className="flex flex-col w-full max-w-md mx-auto h-full">
@@ -167,6 +174,7 @@ export default function Chat() {
               )
             }
           })}
+          <div ref={endOfMessagesRef} />
         </div>
         <div className="mb-4 grid grid-cols-2 gap-2 px-4 sm:px-0">
           {messages.length === 1 &&
