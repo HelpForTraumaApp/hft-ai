@@ -1,144 +1,135 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
-import TitleList from '@/components/dialogue/TitleList';
-import ChatHistory from '@/components/dialogue/ChatHistory';
-import ChatInput from '@/components/dialogue/ChatInput';
-import EditModal from '@/components/modals/EditModal';
-import DeleteModal from '@/components/modals/DeleteModal';
+import React, { useState, useRef, useEffect } from 'react'
+import TitleList from '@/components/dialogue/TitleList'
+import ChatHistory from '@/components/dialogue/ChatHistory'
+import ChatInput from '@/components/dialogue/ChatInput'
+import EditModal from '@/components/modals/EditModal'
+import DeleteModal from '@/components/modals/deleteStoryModal'
 // import types
-import { TitleProps, MessageProps } from '@/lib/types';
+import { TitleProps, MessageProps } from '@/lib/types'
 
 export const TextDialogue = () => {
-  // For TitleList 
-  const [titles, setTitles] = useState<TitleProps[]>([]);
-  const [selectedTitle, setSelectedTitle] = useState<TitleProps | undefined>();
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isDeletModalOpen, setIsDeletModalOpen] = useState(false);
-  const [titleToOperation, setTitleToOperation] = useState<TitleProps | undefined>();
+  // For TitleList
+  const [titles, setTitles] = useState<TitleProps[]>([])
+  const [selectedTitle, setSelectedTitle] = useState<TitleProps | undefined>()
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDeletModalOpen, setIsDeletModalOpen] = useState(false)
+  const [titleToOperation, setTitleToOperation] = useState<
+    TitleProps | undefined
+  >()
   // For ChatHistory
-  const [messages, setMessages] = useState<MessageProps[]>([]);
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState<MessageProps[]>([])
+  const chatEndRef = useRef<HTMLDivElement>(null)
   // Initial Components
   const fetchDialogueTitles = async (isCreate: boolean) => {
     const response = await fetch('/api/dialogueTitle', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
     if (response.ok) {
-      setTitles(await data.data);
-      if (!isCreate) setSelectedTitle(await data.data[0]);
+      setTitles(await data.data)
+      if (!isCreate) setSelectedTitle(await data.data[0])
     } else {
-      console.error('Failed to fetch dialogue titles.');
+      console.error('Failed to fetch dialogue titles.')
     }
-  };
+  }
   const fetchMessages = async (title_id: string) => {
     const response = await fetch(`/api/textmessage?title_id=${title_id}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
     if (response.ok) {
-      setMessages(await data.data);
+      setMessages(await data.data)
     } else {
-      console.error('Failed to fetch dialogue titles.');
+      console.error('Failed to fetch dialogue titles.')
     }
   }
   useEffect(() => {
-    fetchDialogueTitles(false);
-  }, []);
+    fetchDialogueTitles(false)
+  }, [])
   useEffect(() => {
-    if (selectedTitle) fetchMessages(selectedTitle.id);
-  }, [selectedTitle]);
+    if (selectedTitle) fetchMessages(selectedTitle.id)
+  }, [selectedTitle])
   useEffect(() => {
     if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [messages]);
+  }, [messages])
   // For TitleList Functions
   const handleSelectedTitle = (item: TitleProps) => {
-    setSelectedTitle(item);
+    setSelectedTitle(item)
   }
   const handleEditTitle = (item: TitleProps) => {
-    setTitleToOperation(item);
-    setIsEditModalOpen(true);
+    setTitleToOperation(item)
+    setIsEditModalOpen(true)
   }
   const changeTitle = async (updatedTitle: TitleProps) => {
+    const ghost = updatedTitle.ghost
+    const title = updatedTitle.title
 
-    const ghost = updatedTitle.ghost;
-    const title = updatedTitle.title;
-
-    if (updatedTitle.id == "-1") {
+    if (updatedTitle.id == '-1') {
       try {
         const response = await fetch('/api/dialogueTitle', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ ghost, title }),
-        });
+          body: JSON.stringify({ ghost, title })
+        })
 
-        const data = await response.json();
+        const data = await response.json()
         if (data.result) {
-          fetchDialogueTitles(true);
-          setSelectedTitle(await data.result);
+          fetchDialogueTitles(true)
+          setSelectedTitle(await data.result)
         } else {
-
         }
-      } catch (error) {
-
-      }
+      } catch (error) {}
     } else {
       try {
         const response = await fetch('/api/dialogueTitle', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(updatedTitle),
-        });
+          body: JSON.stringify(updatedTitle)
+        })
 
-        const data = await response.json();
+        const data = await response.json()
         if (data.result == 0) {
-          fetchDialogueTitles(true);
+          fetchDialogueTitles(true)
         } else {
-
         }
-      } catch (error) {
-
-      }
+      } catch (error) {}
     }
-
   }
   const handleDeleteTitle = (item: TitleProps) => {
-    setTitleToOperation(item);
-    setIsDeletModalOpen(true);
+    setTitleToOperation(item)
+    setIsDeletModalOpen(true)
   }
   const deleteTitle = async (deleteTitle: TitleProps) => {
-    const id = deleteTitle.id;
+    const id = deleteTitle.id
     try {
       const response = await fetch('/api/dialogueTitle', {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id }),
-      });
+        body: JSON.stringify({ id })
+      })
 
-      const data = await response.json();
+      const data = await response.json()
       if (data.result) {
-        fetchDialogueTitles(true);
+        fetchDialogueTitles(true)
       } else {
-
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   // For ChatHistory Functions
   const deleteMessage = async (id: string) => {
@@ -146,83 +137,73 @@ export const TextDialogue = () => {
       const response = await fetch('/api/textmessage', {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id }),
-      });
+        body: JSON.stringify({ id })
+      })
 
-      const data = await response.json();
+      const data = await response.json()
       if (data.data && selectedTitle) {
-        fetchMessages(selectedTitle.id);
+        fetchMessages(selectedTitle.id)
       } else {
-
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
   const updateMessage = async (id: string, updatedMessage: string) => {
     try {
       const response = await fetch('/api/textmessage', {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id, updatedMessage }),
-      });
+        body: JSON.stringify({ id, updatedMessage })
+      })
 
-      const data = await response.json();
+      const data = await response.json()
       if (data.data == 0 && selectedTitle) {
-        fetchMessages(selectedTitle.id);
+        fetchMessages(selectedTitle.id)
       } else {
-
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
   // For ChatInput Function
   const sendNewMessage = async (isSelf: boolean, message: string) => {
-    const title_id = selectedTitle?.id;
+    const title_id = selectedTitle?.id
     try {
       const response = await fetch('/api/textmessage', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title_id, isSelf, message }),
-      });
+        body: JSON.stringify({ title_id, isSelf, message })
+      })
 
-      const data = await response.json();
+      const data = await response.json()
       if (data.data && title_id) {
-        fetchMessages(title_id);
+        fetchMessages(title_id)
       } else {
-
       }
-    } catch (error) {
-    }
-  };
+    } catch (error) {}
+  }
   const updateGhost = async (ghost: string) => {
     if (selectedTitle) {
       let updatedTitle = selectedTitle
-      updatedTitle.ghost = ghost;
+      updatedTitle.ghost = ghost
       try {
         const response = await fetch('/api/dialogueTitle', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(updatedTitle),
-        });
+          body: JSON.stringify(updatedTitle)
+        })
 
-        const data = await response.json();
+        const data = await response.json()
         if (data.result == 0) {
-          fetchDialogueTitles(true);
+          fetchDialogueTitles(true)
         } else {
-
         }
-      } catch (error) {
-
-      }
+      } catch (error) {}
     }
   }
   return (

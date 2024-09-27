@@ -115,20 +115,12 @@ const Excalidraw = ({
         }}
         renderTopRightUI={() => {
           return (
-            <>
-              <button
-                className="bg-[#f8f9fa] py-2 px-4 rounded-md hover:bg-[#e2e6ea] duration-200"
-                onClick={() => saveElements()}
-              >
-                Save
-              </button>
-              <button
-                className="bg-[#f8f9fa] py-2 px-4 rounded-md hover:bg-[#e2e6ea] duration-200"
-                onClick={handleExportToImage}
-              >
-                Export
-              </button>
-            </>
+            <button
+              className="bg-[#f8f9fa] py-2 px-4 rounded-md hover:bg-[#e2e6ea] duration-200"
+              onClick={handleExportToImage}
+            >
+              Download
+            </button>
           )
         }}
       />

@@ -183,3 +183,44 @@ input[type='range']::-webkit-slider-thumb {
 .carousel-item:hover button {
   opacity: 1;
 }
+
+.story-item {
+  z-index: -1;
+}
+
+.story-item button {
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.story-item > div:hover button {
+  opacity: 1;
+}
+
+.story-item .date-content {
+  position: relative;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  z-index: 100;
+}
+
+.story-item .date-content::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 4px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #e4e4e4;
+  z-index: -1;
+}
+
+.color-modal-wrapper {
+  box-shadow:
+    0 47px 74px rgba(0, 0, 0, 0.06),
+    0 9.4px 12.025px rgba(0, 0, 0, 0.12);
+}

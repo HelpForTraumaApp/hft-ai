@@ -1,29 +1,24 @@
 'use client'
 import CloseIcon from '@/app/assets/icons/close_icon.svg'
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Check_Icon from '@/app/assets/icons/check_icon.svg'
+import { colorData } from './editStoryModal'
 
 interface ColorModalProps {
   onClose: () => void
   selectColor: (index: number) => void
-  colorData: string[]
+  selectedColor: number
 }
 
 const ColorModal = ({
   onClose,
   selectColor,
-  colorData
+  selectedColor
 }: ColorModalProps) => {
-  useEffect(() => {}, [])
-
-  const selectedColor = (index: number) => {
-    selectColor(index)
-  }
-
   return (
-    <>
-      <div className="flex justify-between items-center">
+    <div className="color-modal z-50">
+      <div className="flex justify-between items-center z-50">
         <span>Color</span>
         <button
           onClick={onClose}
@@ -41,14 +36,18 @@ const ColorModal = ({
       <div className="mt-4 ml-3 items-center grid grid-cols-4 gap-4">
         {colorData.map((color, index) => (
           <button
-            onClick={() => selectedColor(index)}
+            onClick={() => selectColor(index)}
             className={'w-6 h-6 rounded-full cursor-pointer'}
             style={{ background: color }}
             key={index}
-          ></button>
+          >
+            {selectedColor == index && (
+              <Image width={20} height={20} src={Check_Icon} alt="check" />
+            )}
+          </button>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 
