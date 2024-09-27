@@ -54,9 +54,6 @@ module.exports = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
-        },
-        eventmodal_button_color: {
-          DEFAULT: 'rgba(22, 193, 251, 0.05)'
         }
       },
       borderRadius: {

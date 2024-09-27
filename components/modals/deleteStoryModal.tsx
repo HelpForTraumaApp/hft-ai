@@ -1,10 +1,14 @@
 import { Modal } from './modal'
 
-interface PartMapModalProps {
+interface DeleteModalProps {
   onClose: () => void
   handleSubmit: () => void
 }
-export const PartMapModal = ({ onClose, handleSubmit }: PartMapModalProps) => {
+
+export const DeleteStoryModal = ({
+  onClose,
+  handleSubmit
+}: DeleteModalProps) => {
   return (
     <Modal onClose={onClose} title="">
       <div className="px-4">

@@ -5,6 +5,8 @@ import { ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types/types'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { exportToBlob } from '@excalidraw/excalidraw'
+import { debounce } from '@/app/utilities/helpers'
+
 const ExcalidrawPrimitive = dynamic(
   async () => (await import('@excalidraw/excalidraw')).Excalidraw,
   {
@@ -33,20 +35,40 @@ const Excalidraw = ({
   }, [sceneName])
 
   useEffect(() => {
-    api?.updateScene({
-      elements,
-      appState: {
-        viewBackgroundColor: '#f8f9fa',
-        currentItemFontFamily: 1
-      }
-    })
+    if (api) {
+      api.updateScene({
+        elements,
+        appState: {
+          viewBackgroundColor: '#f8f9fa',
+          currentItemFontFamily: 1
+        }
+      })
+    }
   }, [elements])
+
+  const saveDebounced = debounce((elements: readonly ExcalidrawElement[]) => {
+    handleSaveScene([...elements], inputName)
+  }, 300)
+
+  const onBlur = () => {
+    saveDebounced.flush()
+  }
+
+  useEffect(() => {
+    window.addEventListener('unload', onBlur, false)
+    window.addEventListener('blur', onBlur, false)
+
+    return () => {
+      window.removeEventListener('unload', onBlur, false)
+      window.removeEventListener('blur', onBlur, false)
+    }
+  }, [])
 
   const saveElements = () => {
     if (!api) return
 
     const sceneElements = api.getSceneElementsIncludingDeleted()
-    handleSaveScene([...sceneElements], inputName)
+    saveDebounced([...sceneElements])
   }
 
   const handleExportToImage = async () => {
@@ -88,22 +110,17 @@ const Excalidraw = ({
           },
           scrollToContent: true
         }}
+        onChange={elements => {
+          saveDebounced(elements)
+        }}
         renderTopRightUI={() => {
           return (
-            <>
-              <button
-                className="bg-[#f8f9fa] py-2 px-4 rounded-md hover:bg-[#e2e6ea] duration-200"
-                onClick={() => saveElements()}
-              >
-                Save
-              </button>
-              <button
-                className="bg-[#f8f9fa] py-2 px-4 rounded-md hover:bg-[#e2e6ea] duration-200"
-                onClick={handleExportToImage}
-              >
-                Export
-              </button>
-            </>
+            <button
+              className="bg-[#f8f9fa] py-2 px-4 rounded-md hover:bg-[#e2e6ea] duration-200"
+              onClick={handleExportToImage}
+            >
+              Download
+            </button>
           )
         }}
       />
@@ -113,7 +130,10 @@ const Excalidraw = ({
           value={inputName}
           className="border-[2px] h-8 ml-2"
           type="text"
-          onChange={e => setInputName(e.target.value)}
+          onChange={e => {
+            setInputName(e.target.value)
+            saveElements()
+          }}
         />
       </div>
     </div>
