@@ -5,7 +5,7 @@ import ArrowLeft from '@/app/assets/icons/left_arrow.svg'
 import ArrowRight from '@/app/assets/icons/right_arrow.svg'
 import IconPlus from '@/app/assets/icons/plus_icon.svg'
 import { ExcalidrawContent } from '../partMap/partMap'
-import { PartMapModal } from '../modals/partMapModal'
+import { DeleteStoryModal } from '../modals/deleteStoryModal'
 
 interface PathMapCarouselProps {
   contentList: ExcalidrawContent[]
@@ -80,14 +80,14 @@ export const PathMapCarousel = ({
           />
         </button>
         <button
-          className="bg-slate-500 p-4 rounded-md"
+          className="border-[1px] border-[#563d7c] bg-white hover:bg-[#0000001f] p-4 rounded-md"
           onClick={handleAddScene}
         >
           <Image priority src={IconPlus} height={40} width={40} alt={'aaaa'} />
         </button>
       </div>
       {indexWillBeDeleted >= 0 && (
-        <PartMapModal
+        <DeleteStoryModal
           onClose={() => setIndexWillBeDeleted(-1)}
           handleSubmit={handleDelete}
         />
