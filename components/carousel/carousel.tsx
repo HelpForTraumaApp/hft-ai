@@ -80,7 +80,7 @@ export const PathMapCarousel = ({
           />
         </button>
         <button
-          className="bg-slate-500 p-4 rounded-md"
+          className="border-[1px] border-[#563d7c] bg-white hover:bg-[#0000001f] p-4 rounded-md"
           onClick={handleAddScene}
         >
           <Image priority src={IconPlus} height={40} width={40} alt={'aaaa'} />
