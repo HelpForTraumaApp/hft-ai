@@ -109,12 +109,16 @@
   }
 }
 
-.excalidraw .layer-ui__wrapper__top-right,
+.excalidraw .layer-ui__wrapper__top-right > *,
 .excalidraw .layer-ui__wrapper__footer-right,
 .main-menu-trigger,
 .App-toolbar__divider,
 .App-toolbar__extra-tools-trigger {
   display: none !important;
+}
+
+.excalidraw .layer-ui__wrapper__top-right > button {
+  display: flex !important;
 }
 
 .modal-overlay {
