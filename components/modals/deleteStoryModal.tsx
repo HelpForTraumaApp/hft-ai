@@ -4,6 +4,7 @@ interface DeleteModalProps {
   onClose: () => void
   handleSubmit: () => void
 }
+
 export const DeleteStoryModal = ({
   onClose,
   handleSubmit

@@ -5,7 +5,7 @@ import TitleList from '@/components/dialogue/TitleList'
 import ChatHistory from '@/components/dialogue/ChatHistory'
 import ChatInput from '@/components/dialogue/ChatInput'
 import EditModal from '@/components/modals/EditModal'
-import DeleteModal from '@/components/modals/deleteStoryModal'
+import DeleteModal from '@/components/modals/DeleteModal'
 // import types
 import { TitleProps, MessageProps } from '@/lib/types'
 

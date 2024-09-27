@@ -6,7 +6,7 @@ import { EditStoryModal } from '@/components/modals/editStoryModal'
 import { Story } from './story'
 import { useRouter } from 'next/navigation'
 import { ExcalidrawContent } from '../partMap/partMap'
-import ColorModal from '../modals/colorModal'
+import { ColorModal } from '../modals/colorModal'
 import { DeleteStoryModal } from '../modals/deleteStoryModal'
 
 export type EventInfo = {

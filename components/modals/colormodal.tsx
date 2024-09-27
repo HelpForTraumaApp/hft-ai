@@ -11,7 +11,7 @@ interface ColorModalProps {
   selectedColor: number
 }
 
-const ColorModal = ({
+export const ColorModal = ({
   onClose,
   selectColor,
   selectedColor
@@ -50,5 +50,3 @@ const ColorModal = ({
     </div>
   )
 }
-
-export default ColorModal;
