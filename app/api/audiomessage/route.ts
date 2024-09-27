@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createMessage, updateMessage, deleteMessage, selectMessagesByTitleId } from '@/lib/actions/dialoguemessages';
+import { createMessage, deleteMessage, selectMessagesByTitleId } from '@/lib/actions/dialoguemessages';
 import { getAuth } from '@/lib/auth';
 
 export async function POST(req: Request) {
@@ -7,23 +7,12 @@ export async function POST(req: Request) {
     try {
         let body = await req.json();
         body.user_id = user_id;
-        body.is_text = true;
+        body.is_text = false;
         const data = await createMessage(body);
         return NextResponse.json({ data });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ message: 'Failed to create text message.' }, { status: 400 });
-    }
-}
-
-export async function PUT(req: Request) {
-    try {
-        const body = await req.json();
-        const data = await updateMessage(body);
-        return NextResponse.json({ data });
-    } catch (error) {
-        console.error(error);
-        return NextResponse.json({ message: 'Failed to update text message.' }, { status: 400 });
     }
 }
 
@@ -36,7 +25,7 @@ export async function GET(req: Request) {
             if (!title_id) {
                 return NextResponse.json({ message: 'title_id is required' }, { status: 400 });
             }
-            const is_text = true;
+            const is_text = false;
             const data = await selectMessagesByTitleId({title_id, user_id, is_text});
             return NextResponse.json({ data });
         } catch (error) {

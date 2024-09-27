@@ -21,7 +21,8 @@ export const TextDialogue = () => {
   const chatEndRef = useRef<HTMLDivElement>(null);
   // Initial Components
   const fetchDialogueTitles = async (isCreate: boolean) => {
-    const response = await fetch('/api/dialogueTitle', {
+    const is_text = 'true';
+    const response = await fetch(`/api/dialogueTitle?is_text=${is_text}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -74,13 +75,14 @@ export const TextDialogue = () => {
     const title = updatedTitle.title;
 
     if (updatedTitle.id == "-1") {
+      const is_text = 'true';
       try {
         const response = await fetch('/api/dialogueTitle', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ ghost, title }),
+          body: JSON.stringify({ ghost, title, is_text }),
         });
 
         const data = await response.json();

@@ -29,9 +29,11 @@ export async function PUT(req: Request) {
 
 export async function GET(req: Request) {
     const user_id = await getAuth();
-    if (user_id !=null) {
+    if (user_id != null) {
         try {
-            const body = {user_id};
+            const { searchParams } = new URL(req.url);
+            const is_text: string = searchParams.get('is_text') ?? '';
+            const body = { user_id, is_text };
             const data = await selectAllDialogueTitles(body);
             return NextResponse.json({ data });
         } catch (error) {

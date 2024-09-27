@@ -24,11 +24,15 @@ export async function POST(request: Request) {
   const key = `audio/${uuidv4()}.mp3`; // Unique name for the file
 
   try {
+    // Convert the file to an ArrayBuffer and then to a Buffer
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
     // Upload to S3
     await s3.send(new PutObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: key,
-      Body: file.stream(), // Streaming file
+      Body: buffer,  // Use buffer instead of stream
       ContentType: 'audio/mpeg',
     }));
 
@@ -36,6 +40,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ url });
   } catch (error) {
+    console.log(error);
     return NextResponse.json({ error: "error" }, { status: 500 });
   }
 }
