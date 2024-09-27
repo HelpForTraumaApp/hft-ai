@@ -9,9 +9,5 @@ export default async function StoriesPage() {
   if (!session) {
     redirect('/')
   }
-  return (
-    <div>
-      <Stories />
-    </div>
-  )
+  return <Stories />
 }

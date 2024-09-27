@@ -1,8 +1,8 @@
 'use client'
 
-import { useChat, useAssistant } from 'ai/react'
+import { useChat } from 'ai/react'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import Typewriter from './typewriter'
 
 type Pathname =
@@ -27,35 +27,92 @@ const initialMessages: Record<Pathname, string> = {
 
 const exampleMessages = {
   '/dashboard': [
-    'Learn about grounding techniques to stay present and calm in stressful moments.',
-    'Create a personalized mental safe space to use for comfort.',
-    'Explore and map True Self and different Parts of yourself to better understand your inner landscape.',
-    'Engage in conversations between your True Self and different Parts to gain insight and balance.'
+    {
+      heading: 'Grounding Techniques',
+      message:
+        'Learn about grounding techniques to stay present and calm in stressful moments.'
+    },
+    {
+      heading: 'Mental Safe Space',
+      message: 'Create a personalized mental safe space to use for comfort.'
+    },
+    {
+      heading: 'Understanding True Self',
+      message:
+        'Explore and map True Self and different Parts of yourself to better understand your inner landscape.'
+    },
+    {
+      heading: 'Conversations for Insight',
+      message:
+        'Engage in conversations between your True Self and different Parts to gain insight and balance.'
+    }
   ],
 
   '/grounding': [
-    'What are grounding techniques?',
-    'How does grounding reduce anxiety?',
-    'Why is sensory grounding effective?',
-    'Can grounding help dissociation?'
+    {
+      heading: 'Understanding Grounding',
+      message: 'What are grounding techniques?'
+    },
+    {
+      heading: 'Anxiety Reduction',
+      message: 'How does grounding reduce anxiety?'
+    },
+    {
+      heading: 'Sensory Grounding',
+      message: 'Why is sensory grounding effective?'
+    },
+    {
+      heading: 'Grounding and Dissociation',
+      message: 'Can grounding help dissociation?'
+    }
   ],
+
   '/safe-place': [
-    'How do I create a Safe Place?',
-    'What makes a place feel safe?',
-    'How can Safe Place reduce stress?',
-    'What senses engage in Safe Place?'
+    {
+      heading: 'Creating a Safe Place',
+      message: 'How do I create a Safe Place?'
+    },
+    { heading: 'Elements of Safety', message: 'What makes a place feel safe?' },
+    {
+      heading: 'Stress Reduction',
+      message: 'How can Safe Place reduce stress?'
+    },
+    {
+      heading: 'Engaging the Senses',
+      message: 'What senses engage in Safe Place?'
+    }
   ],
+
   '/parts-map': [
-    'What is the True Self?',
-    'Explain Parts in trauma recovery.',
-    'How does Parts Map help healing?',
-    'How to identify True Self qualities?'
+    { heading: 'True Self Exploration', message: 'What is the True Self?' },
+    {
+      heading: 'Parts in Trauma Recovery',
+      message: 'Explain Parts in trauma recovery.'
+    },
+    {
+      heading: 'Healing with Parts Map',
+      message: 'How does Parts Map help healing?'
+    },
+    {
+      heading: 'Identifying True Self Qualities',
+      message: 'How to identify True Self qualities?'
+    }
   ],
+
   '/dialogue': [
-    'How does Externalized Dialogue work?',
-    'What is victim mythology?',
-    'How can dialogue heal trauma?',
-    'Can parts communicate through writing?'
+    {
+      heading: 'Externalized Dialogue',
+      message: 'How does Externalized Dialogue work?'
+    },
+    { heading: 'Victim Mythology', message: 'What is victim mythology?' },
+    {
+      heading: 'Healing through Dialogue',
+      message: 'How can dialogue heal trauma?'
+    },
+    {
+      heading: 'Communication through Writing',
+      message: 'Can parts communicate through writing?'
+    }
   ]
 }
 
@@ -73,6 +130,8 @@ export default function Chat() {
 
   const pathname = usePathname() as Pathname
 
+  const endOfMessagesRef = useRef<HTMLDivElement | null>(null)
+
   useEffect(() => {
     const messageContent = initialMessages[pathname]
 
@@ -84,6 +143,11 @@ export default function Chat() {
       }
     ])
   }, [pathname])
+
+  useEffect(() => {
+    if (endOfMessagesRef.current)
+      endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   return (
     <div className="flex flex-col w-full max-w-md mx-auto h-full">
@@ -110,24 +174,26 @@ export default function Chat() {
               )
             }
           })}
+          <div ref={endOfMessagesRef} />
         </div>
         <div className="mb-4 grid grid-cols-2 gap-2 px-4 sm:px-0">
           {messages.length === 1 &&
             exampleMessages[pathname] &&
-            exampleMessages[pathname].map((message, index) => (
+            exampleMessages[pathname].map((example, index) => (
               <div
-                key={message}
+                key={example.heading}
                 className={`cursor-pointer rounded-lg border bg-white p-4 hover:bg-zinc-50 dark:bg-zinc-950 dark:hover:bg-zinc-900 ${
                   index > 1 && 'hidden md:block'
                 }`}
                 onClick={() =>
                   append({
                     role: 'user',
-                    content: message
+                    content: example.message
                   })
                 }
               >
-                <div className="text-sm font-semibold">{message}</div>
+                <div className="text-sm font-semibold">{example.heading}</div>
+                <div className="text-sm text-zinc-600">{example.message}</div>
               </div>
             ))}
         </div>

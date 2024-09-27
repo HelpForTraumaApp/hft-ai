@@ -21,30 +21,30 @@ export const AudioDialogue = () => {
     const response = await fetch(`/api/dialogueTitle?is_text=${is_text}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const data = await response.json();
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
     if (response.ok) {
-      setTitles(await data.data);
-      if (!isCreate) setSelectedTitle(await data.data[0]);
+      setTitles(await data.data)
+      if (!isCreate) setSelectedTitle(await data.data[0])
     } else {
-      console.error('Failed to fetch dialogue titles.');
+      console.error('Failed to fetch dialogue titles.')
     }
   };
   useEffect(() => {
     fetchDialogueTitles(false);
   }, []);
+
   // For TitleList Functions
   const handleSelectedTitle = (item: TitleProps) => {
-    setSelectedTitle(item);
+    setSelectedTitle(item)
   }
   const handleEditTitle = (item: TitleProps) => {
-    setTitleToOperation(item);
-    setIsEditModalOpen(true);
+    setTitleToOperation(item)
+    setIsEditModalOpen(true)
   }
   const changeTitle = async (updatedTitle: TitleProps) => {
-
     const ghost = updatedTitle.ghost;
     const title = updatedTitle.title;
 
@@ -54,112 +54,95 @@ export const AudioDialogue = () => {
         const response = await fetch('/api/dialogueTitle', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({ ghost, title, is_text }),
         });
-
-        const data = await response.json();
+        const data = await response.json()
         if (data.result) {
-          fetchDialogueTitles(true);
-          setSelectedTitle(await data.result);
+          fetchDialogueTitles(true)
+          setSelectedTitle(await data.result)
         } else {
-
         }
-      } catch (error) {
-
-      }
+      } catch (error) { }
     } else {
       try {
         const response = await fetch('/api/dialogueTitle', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(updatedTitle),
-        });
+          body: JSON.stringify(updatedTitle)
+        })
 
-        const data = await response.json();
+        const data = await response.json()
         if (data.result == 0) {
-          fetchDialogueTitles(true);
+          fetchDialogueTitles(true)
         } else {
-
         }
-      } catch (error) {
-
-      }
+      } catch (error) { }
     }
-
   }
   const handleDeleteTitle = (item: TitleProps) => {
-    setTitleToOperation(item);
-    setIsDeletModalOpen(true);
+    setTitleToOperation(item)
+    setIsDeletModalOpen(true)
   }
   const deleteTitle = async (deleteTitle: TitleProps) => {
-    const id = deleteTitle.id;
+    const id = deleteTitle.id
     try {
       const response = await fetch('/api/dialogueTitle', {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id }),
-      });
+        body: JSON.stringify({ id })
+      })
 
-      const data = await response.json();
+      const data = await response.json()
       if (data.result) {
-        fetchDialogueTitles(true);
+        fetchDialogueTitles(true)
       } else {
-
       }
-    } catch (error) {
-
-    }
+    } catch (error) { }
   }
-
   // For Audio Functions
   const sendNewMessage = async (isSelf: boolean, message: string) => {
-    const title_id = selectedTitle?.id;
+    const title_id = selectedTitle?.id
     try {
       const response = await fetch('/api/audiomessage', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ title_id, isSelf, message }),
-      });
+        body: JSON.stringify({ title_id, isSelf, message })
+      })
 
-      const data = await response.json();
+      const data = await response.json()
       if (data.data && title_id) {
         // fetchMessages(title_id);
       } else {
-
       }
-    } catch (error) {
-    }
-  };
+    } catch (error) { }
+  }
   const updateGhost = async (ghost: string) => {
     if (selectedTitle) {
       let updatedTitle = selectedTitle
-      updatedTitle.ghost = ghost;
+      updatedTitle.ghost = ghost
       try {
         const response = await fetch('/api/dialogueTitle', {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify(updatedTitle),
-        });
+          body: JSON.stringify(updatedTitle)
+        })
 
-        const data = await response.json();
+        const data = await response.json()
         if (data.result == 0) {
-          fetchDialogueTitles(true);
+          fetchDialogueTitles(true)
         } else {
-
         }
-      } catch (error) {
-
-      }
+      } catch (error) { }
     }
   }
   return (

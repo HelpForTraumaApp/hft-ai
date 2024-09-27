@@ -10,9 +10,5 @@ export default async function SafePlacePage() {
     redirect('/')
   }
 
-  return (
-    <div>
-      <SafePlace />
-    </div>
-  )
+  return <SafePlace />
 }
