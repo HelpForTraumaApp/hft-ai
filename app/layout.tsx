@@ -69,16 +69,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               {session ? (
                 <div className="relative flex h-[calc(100vh_-_theme(spacing.16))] overflow-hidden">
                   <SidebarDesktop />
-                  <div className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
-                    <div className="flex h-full w-full">
-                      <div className="relative overflow-y-auto">
-                        <Template>{children}</Template>
-                      </div>
-                      {/* <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700"> */}
-                      {/* </div> */}
-                    </div>
+                  <div className="group flex-1 w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
+                    <Template>{children}</Template>
                   </div>
-                  <Chat />
+                  <div className="px-3">
+                    <Chat />
+                  </div>
                 </div>
               ) : (
                 children

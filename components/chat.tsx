@@ -175,7 +175,7 @@ export default function Chat() {
 
   return (
     <div
-      className={`z-30 border-r bg-muted w-[600px] transition-transform duration-300 ease-in-out ${
+      className={`z-30 bg-muted h-full w-[300px] lg:w-[450px] xl:w-[500px] transition-transform duration-300 ease-in-out ${
         isAISidebarOpen ? 'translate-x-0' : '-translate-x-full hidden'
       }`}
     >
@@ -228,7 +228,7 @@ export default function Chat() {
           </div>
           <form onSubmit={handleSubmit}>
             <input
-              className="w-full max-w-md p-2 border border-gray-300 rounded shadow-xl"
+              className="w-full p-2 border border-gray-300 rounded shadow-xl"
               value={input}
               placeholder="Say something..."
               onChange={handleInputChange}
