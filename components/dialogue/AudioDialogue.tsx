@@ -2,11 +2,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import TitleList from '@/components/dialogue/TitleList';
+import AudioHistory from '@/components/dialogue/AudioHistory';
 import AudioRecorder from '@/components/dialogue/AudioRecorder';
 import EditModal from '@/components/modals/EditModal';
 import DeleteModal from '@/components/modals/DeleteModal';
 // import types
-import { TitleProps } from '@/lib/types';
+import { TitleProps, MessageProps } from '@/lib/types';
 
 export const AudioDialogue = () => {
   // For TitleList  
@@ -15,6 +16,9 @@ export const AudioDialogue = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeletModalOpen, setIsDeletModalOpen] = useState(false);
   const [titleToOperation, setTitleToOperation] = useState<TitleProps | undefined>();
+  // For ChatHistory
+  const [messages, setMessages] = useState<MessageProps[]>([])
+  const chatEndRef = useRef<HTMLDivElement>(null)
   // Initial Components
   const fetchDialogueTitles = async (isCreate: boolean) => {
     const is_text = 'false';
@@ -32,10 +36,31 @@ export const AudioDialogue = () => {
       console.error('Failed to fetch dialogue titles.')
     }
   };
+  const fetchMessages = async (title_id: string) => {
+    const response = await fetch(`/api/audiomessage?title_id=${title_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
+    if (response.ok) {
+      setMessages(await data.data)
+    } else {
+      console.error('Failed to fetch dialogue titles.')
+    }
+  }
   useEffect(() => {
     fetchDialogueTitles(false);
   }, []);
-
+  useEffect(() => {
+    if (selectedTitle) fetchMessages(selectedTitle.id)
+  }, [selectedTitle])
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages])
   // For TitleList Functions
   const handleSelectedTitle = (item: TitleProps) => {
     setSelectedTitle(item)
@@ -105,6 +130,24 @@ export const AudioDialogue = () => {
       }
     } catch (error) { }
   }
+  // For ChatHistory Functions
+  const deleteMessage = async (id: string) => {
+    try {
+      const response = await fetch('/api/audiomessage', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+      })
+
+      const data = await response.json()
+      if (data.data && selectedTitle) {
+        fetchMessages(selectedTitle.id)
+      } else {
+      }
+    } catch (error) { }
+  }
   // For Audio Functions
   const sendNewMessage = async (isSelf: boolean, message: string) => {
     const title_id = selectedTitle?.id
@@ -119,7 +162,7 @@ export const AudioDialogue = () => {
 
       const data = await response.json()
       if (data.data && title_id) {
-        // fetchMessages(title_id);
+        fetchMessages(title_id);
       } else {
       }
     } catch (error) { }
@@ -153,6 +196,12 @@ export const AudioDialogue = () => {
         handleSelectedTitle={handleSelectedTitle}
         handleEditTitle={handleEditTitle}
         handleDeleteTitle={handleDeleteTitle}
+      />
+      <AudioHistory
+        messages={messages}
+        deleteMessage={deleteMessage}
+        selectedTitleGhost={selectedTitle?.ghost}
+        chatEndRef={chatEndRef}
       />
       <AudioRecorder
         sendNewMessage={sendNewMessage}
