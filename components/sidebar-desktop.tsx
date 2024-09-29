@@ -1,6 +1,5 @@
 import { Sidebar } from '@/components/sidebar'
 import { SidebarList } from './sidebar-list'
-
 import { auth } from '@/auth'
 
 export async function SidebarDesktop() {
