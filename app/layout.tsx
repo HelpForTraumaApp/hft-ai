@@ -12,10 +12,9 @@ import { nanoid } from '@/lib/utils'
 import { auth } from '@/auth'
 import { Session } from '@/lib/types'
 import { getMissingKeys } from '@/app/actions'
-import { AI } from '@/lib/chat/actions'
-import { ContentPanel } from '@/components/content-panel'
 import Template from './template'
 import Chat from '@/components/chat'
+
 export const metadata = {
   metadataBase: process.env.VERCEL_URL
     ? new URL(`https://${process.env.VERCEL_URL}`)
@@ -70,15 +69,11 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               {session ? (
                 <div className="relative flex h-[calc(100vh_-_theme(spacing.16))] overflow-hidden">
                   <SidebarDesktop />
-                  <div className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
-                    <div className="flex h-full w-full">
-                      <div className="relative w-2/3 overflow-y-auto">
-                        <Template>{children}</Template>
-                      </div>
-                      <div className="w-1/3 flex items-end border-l border-gray-200 dark:border-gray-700">
-                        <Chat></Chat>
-                      </div>
-                    </div>
+                  <div className="group flex-1 w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
+                    <Template>{children}</Template>
+                  </div>
+                  <div className="px-3">
+                    <Chat />
                   </div>
                 </div>
               ) : (
