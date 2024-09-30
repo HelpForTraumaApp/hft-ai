@@ -24,6 +24,7 @@ const AudioComponent: FC<AudioComponentProps> = (props) => {
                     <audio
                         src={msg.msgData}
                         controls
+                        className='bg-gray-100 mt-1'
                     />
                     <div className="absolute right-0 top-0">
                         <IoClose className="cursor-pointer bg-red-500 text-white" onClick={() => deleteMessage(msg.id)} />

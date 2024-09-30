@@ -11,6 +11,8 @@ type AudioRecorderProps = {
 
 const AudioRecorder: FC<AudioRecorderProps> = (props) => {
   const { sendNewMessage, ghost, updateGhost } = props;
+  const [ghostUpdate, setGhostUpdate] = useState(false);
+  const [tempGhost, setTempGhost] = useState('');
   const [recorder] = useState(new MicRecorder({ bitRate: 128 }));
   const [selfRecorded, setSelfRecorded] = useState<boolean>(false);
   const [partRecorded, setPartRecorded] = useState<boolean>(false);
@@ -48,20 +50,29 @@ const AudioRecorder: FC<AudioRecorderProps> = (props) => {
       const file = new File(buffer, 'recording.mp3', { type: blob.type });
       const formData = new FormData();
       formData.append('file', file);
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
-        if (!response.ok) {
-          throw new Error('Failed to upload');
-        }
-        const data = await response.json();
-        sendNewMessage(isSelf, data.url);
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error('Failed to upload');
+      }
+      const data = await response.json();
+      sendNewMessage(isSelf, data.url);
     }).catch((e: any) => {
       setError('Recording failed.');
       console.error(e);
     });
   };
+
+  const handleGhostName = () => {
+    if (tempGhost.trim() == '') {
+      setGhostUpdate(!ghostUpdate);
+    } else {
+      updateGhost(tempGhost);
+      setGhostUpdate(!ghostUpdate);
+    }
+  }
 
   return (
     <div className='flex flex-col gap-1 justify-center items-center'>
@@ -70,6 +81,19 @@ const AudioRecorder: FC<AudioRecorderProps> = (props) => {
           <p className='text-red-500'>{error}</p>
         </div>
       }
+      {ghostUpdate && (
+        <div className='flex flex-row gap-2 -m-[1px]'>
+          <input
+            className=' px-2 focus:outline-none border border-slate-400 rounded'
+            onChange={(e) => setTempGhost(e.target.value)}
+          />
+          <button
+            className='rounded bg-[#16c1fb] hover:bg-gray-300 px-2'
+            onClick={handleGhostName}
+          >update
+          </button>
+        </div>
+      )}
       {ghost != null && (
         <div className="flex flex-row justify-center gap-4">
           <button
@@ -86,6 +110,12 @@ const AudioRecorder: FC<AudioRecorderProps> = (props) => {
             <PiRecordFill className='text-2xl text-yellow-600' />
             {partRecorded ? 'Stop Recording' : 'Record as '}{ghost}
           </button>
+          <div
+            className={`h-fit p-4 rounded cursor-pointer ${ghostUpdate ? 'bg-green-700' : 'bg-[#16c1fb]'}`}
+            onClick={() => (setGhostUpdate(!ghostUpdate))}
+          >
+            <FiEdit className={`${ghostUpdate ? 'bg-green-700' : 'bg-[#16c1fb]'} text-white text-2xl`} />
+          </div>
         </div>
       )}
       {ghost == null && (
