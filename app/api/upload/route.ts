@@ -21,10 +21,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 });
   }
 
-  const key = `audio/${uuidv4()}.mp3`; // Unique name for the file
+  const key = `audio/${uuidv4()}.mp3`;
 
   try {
-    // Convert the file to an ArrayBuffer and then to a Buffer
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
@@ -32,7 +31,7 @@ export async function POST(request: Request) {
     await s3.send(new PutObjectCommand({
       Bucket: process.env.AWS_BUCKET_NAME,
       Key: key,
-      Body: buffer,  // Use buffer instead of stream
+      Body: buffer,
       ContentType: 'audio/mpeg',
     }));
 

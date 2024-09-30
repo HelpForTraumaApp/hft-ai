@@ -48,7 +48,6 @@ const AudioRecorder: FC<AudioRecorderProps> = (props) => {
       const file = new File(buffer, 'recording.mp3', { type: blob.type });
       const formData = new FormData();
       formData.append('file', file);
-      try {
         const response = await fetch('/api/upload', {
           method: 'POST',
           body: formData,
@@ -58,10 +57,6 @@ const AudioRecorder: FC<AudioRecorderProps> = (props) => {
         }
         const data = await response.json();
         sendNewMessage(isSelf, data.url);
-      } catch (e) {
-        setError('Upload failed.');
-        console.error(e);
-      }
     }).catch((e: any) => {
       setError('Recording failed.');
       console.error(e);

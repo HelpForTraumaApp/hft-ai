@@ -75,37 +75,33 @@ export const AudioDialogue = () => {
 
     if (updatedTitle.id == "-1") {
       const is_text = 'false';
-      try {
-        const response = await fetch('/api/dialogueTitle', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ ghost, title, is_text }),
-        });
-        const data = await response.json()
-        if (data.result) {
-          fetchDialogueTitles(true)
-          setSelectedTitle(await data.result)
-        } else {
-        }
-      } catch (error) { }
+      const response = await fetch('/api/dialogueTitle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ghost, title, is_text }),
+      });
+      const data = await response.json()
+      if (data.result) {
+        fetchDialogueTitles(true)
+        setSelectedTitle(await data.result)
+      } else {
+      }
     } else {
-      try {
-        const response = await fetch('/api/dialogueTitle', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(updatedTitle)
-        })
+      const response = await fetch('/api/dialogueTitle', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedTitle)
+      })
 
-        const data = await response.json()
-        if (data.result == 0) {
-          fetchDialogueTitles(true)
-        } else {
-        }
-      } catch (error) { }
+      const data = await response.json()
+      if (data.result == 0) {
+        fetchDialogueTitles(true)
+      } else {
+      }
     }
   }
   const handleDeleteTitle = (item: TitleProps) => {
@@ -114,78 +110,70 @@ export const AudioDialogue = () => {
   }
   const deleteTitle = async (deleteTitle: TitleProps) => {
     const id = deleteTitle.id
-    try {
-      const response = await fetch('/api/dialogueTitle', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id })
-      })
+    const response = await fetch('/api/dialogueTitle', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id })
+    })
 
-      const data = await response.json()
-      if (data.result) {
-        fetchDialogueTitles(true)
-      } else {
-      }
-    } catch (error) { }
+    const data = await response.json()
+    if (data.result) {
+      fetchDialogueTitles(true)
+    } else {
+    }
   }
   // For ChatHistory Functions
   const deleteMessage = async (id: string) => {
-    try {
-      const response = await fetch('/api/audiomessage', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id })
-      })
+    const response = await fetch('/api/audiomessage', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id })
+    })
 
-      const data = await response.json()
-      if (data.data && selectedTitle) {
-        fetchMessages(selectedTitle.id)
-      } else {
-      }
-    } catch (error) { }
+    const data = await response.json()
+    if (data.data && selectedTitle) {
+      fetchMessages(selectedTitle.id)
+    } else {
+    }
   }
   // For Audio Functions
   const sendNewMessage = async (isSelf: boolean, message: string) => {
     const title_id = selectedTitle?.id
-    try {
-      const response = await fetch('/api/audiomessage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ title_id, isSelf, message })
-      })
+    const response = await fetch('/api/audiomessage', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title_id, isSelf, message })
+    })
 
-      const data = await response.json()
-      if (data.data && title_id) {
-        fetchMessages(title_id);
-      } else {
-      }
-    } catch (error) { }
+    const data = await response.json()
+    if (data.data && title_id) {
+      fetchMessages(title_id);
+    } else {
+    }
   }
   const updateGhost = async (ghost: string) => {
     if (selectedTitle) {
       let updatedTitle = selectedTitle
       updatedTitle.ghost = ghost
-      try {
-        const response = await fetch('/api/dialogueTitle', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(updatedTitle)
-        })
+      const response = await fetch('/api/dialogueTitle', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedTitle)
+      })
 
-        const data = await response.json()
-        if (data.result == 0) {
-          fetchDialogueTitles(true)
-        } else {
-        }
-      } catch (error) { }
+      const data = await response.json()
+      if (data.result == 0) {
+        fetchDialogueTitles(true)
+      } else {
+      }
     }
   }
   return (
