@@ -3,13 +3,14 @@
 import { db } from '../db';
 import { dialogueTitle } from '../db/schema/dialoguetitles';
 import { z } from 'zod';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 // Define schema validation for input, updating, delete, select
 const insertDialogueTitleSchema = z.object({
     ghost: z.string(),
     title: z.string(),
     user_id: z.string(),
+    is_text: z.string(),
 });
 
 const updateDialogueTitleSchema = z.object({
@@ -24,15 +25,20 @@ const deleteDialogueTitleSchema = z.object({
 
 const selectAllDialogueTitlesSchema = z.object({
     user_id: z.string(),
+    is_text: z.string(),
 })
 
-export const createDialogueTitle = async (input: { ghost: string; title: string; user_id: string }) => {
+export const createDialogueTitle = async (input: { ghost: string; title: string; user_id: string; is_text: boolean }) => {
     try {
+        let is_text: boolean;
         const data = insertDialogueTitleSchema.parse(input);
-
+        if (data.is_text == 'true')
+            is_text = true;
+        else
+            is_text = false;
         const [newDialogueTitle] = await db
             .insert(dialogueTitle)
-            .values({ ghost: data.ghost, title: data.title, user_id: data.user_id })
+            .values({ ghost: data.ghost, title: data.title, user_id: data.user_id, is_text: is_text })
             .returning();
         return newDialogueTitle;
     } catch (error) {
@@ -75,14 +81,18 @@ export const deleteDialogueTitle = async (input: { id: string }) => {
     }
 };
 
-export const selectAllDialogueTitles = async (input: {user_id: string}) => {
+export const selectAllDialogueTitles = async (input: { user_id: string; is_text: string }) => {
     try {
+        let is_text: boolean;
         const data = selectAllDialogueTitlesSchema.parse(input);
-
+        if (data.is_text == 'true')
+            is_text = true;
+        else
+            is_text = false;
         const dialogueTitles = await db
-        .select()
-        .from(dialogueTitle)
-        .where(eq(dialogueTitle.user_id, data.user_id));
+            .select()
+            .from(dialogueTitle)
+            .where(and(eq(dialogueTitle.user_id, data.user_id), eq(dialogueTitle.is_text, is_text)));
         return dialogueTitles;
     } catch (error) {
         return error instanceof Error && error.message.length > 0

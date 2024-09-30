@@ -1,9 +1,76 @@
 {
-  "id": "0f28920c-ce84-4560-aee0-c8ee9e923d5a",
+  "id": "fa2922dd-f60d-4484-9666-238aadedcf81",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.dialoguemessages": {
+      "name": "dialoguemessages",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(191)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_text": {
+          "name": "is_text",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title_id": {
+          "name": "title_id",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isSelf": {
+          "name": "isSelf",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "msgData": {
+          "name": "msgData",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "timeStamp": {
+          "name": "timeStamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dialoguemessages_title_id_dialogueTitle_id_fk": {
+          "name": "dialoguemessages_title_id_dialogueTitle_id_fk",
+          "tableFrom": "dialoguemessages",
+          "tableTo": "dialogueTitle",
+          "columnsFrom": [
+            "title_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.dialogueTitle": {
       "name": "dialogueTitle",
       "schema": "",
@@ -17,6 +84,12 @@
         "user_id": {
           "name": "user_id",
           "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_text": {
+          "name": "is_text",
+          "type": "boolean",
           "primaryKey": false,
           "notNull": true
         },
@@ -136,67 +209,6 @@
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.textmessage": {
-      "name": "textmessage",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar(191)",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "title_id": {
-          "name": "title_id",
-          "type": "varchar(191)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "isSelf": {
-          "name": "isSelf",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "msgData": {
-          "name": "msgData",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "timeStamp": {
-          "name": "timeStamp",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "textmessage_title_id_dialogueTitle_id_fk": {
-          "name": "textmessage_title_id_dialogueTitle_id_fk",
-          "tableFrom": "textmessage",
-          "tableTo": "dialogueTitle",
-          "columnsFrom": [
-            "title_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }

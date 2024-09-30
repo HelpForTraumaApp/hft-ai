@@ -97,7 +97,7 @@ const TitleList: FC<TitleListProps> = (props) => {
       {titles.length < 3 && (
         <div className='flex flex-row gap-2 mt-1 w-full'>
           {titles.map((item, index) => (
-            <div className='flex rounded-sm border border-white cursor-pointer w-full h-10'>
+            <div className='flex rounded-sm border border-white cursor-pointer w-full h-10' key={index}>
               <span
                 className={`w-full p-2 ${selectedTitle?.id === item.id ? 'bg-slate-300 text-white' : 'bg-white text-black'}`}
                 onClick={() => handleSelectedTitle(item)}

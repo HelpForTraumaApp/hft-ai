@@ -1,20 +1,15 @@
 import { NextResponse } from 'next/server';
-import { createMessage, updateMessage, deleteMessage, selectMessagesByTitleId } from '@/lib/actions/dialoguemessages';
+import { createMessage, deleteMessage, selectMessagesByTitleId } from '@/lib/actions/dialoguemessages';
 import { getAuth } from '@/lib/auth';
 
 export async function POST(req: Request) {
     const user_id = await getAuth();
     let body = await req.json();
     body.user_id = user_id;
-    body.is_text = true;
+    body.is_text = false;
     const data = await createMessage(body);
     return NextResponse.json({ data });
-}
 
-export async function PUT(req: Request) {
-    const body = await req.json();
-    const data = await updateMessage(body);
-    return NextResponse.json({ data });
 }
 
 export async function GET(req: Request) {
@@ -25,9 +20,10 @@ export async function GET(req: Request) {
         if (!title_id) {
             return NextResponse.json({ message: 'title_id is required' }, { status: 400 });
         }
-        const is_text = true;
+        const is_text = false;
         const data = await selectMessagesByTitleId({ title_id, user_id, is_text });
         return NextResponse.json({ data });
+
     } else {
         return NextResponse.json({ message: 'Invalid User.' }, { status: 400 });
     }
