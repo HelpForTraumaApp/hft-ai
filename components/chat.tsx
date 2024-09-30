@@ -159,13 +159,15 @@ export default function Chat() {
   useEffect(() => {
     const messageContent = initialMessages[pathname]
 
-    setMessages([
-      {
-        id: pathname,
-        role: 'assistant',
-        content: messageContent
-      }
-    ])
+    if (messageContent) {
+      setMessages([
+        {
+          id: pathname,
+          role: 'assistant',
+          content: messageContent
+        }
+      ])
+    }
   }, [pathname])
 
   useEffect(() => {
