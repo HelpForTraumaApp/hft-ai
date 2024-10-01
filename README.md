@@ -8,7 +8,7 @@ HelpForTrauma.ai leverages state-of-the-art technologies such as AI-powered chat
 
 - **Safe Place**: A dedicated area where users can feel secure and grounded.
 - **Grounding Techniques**: Interactive exercises designed to help users stay present during moments of distress.
-- **Parts Mapping**: A visual tool to help users identify and work through different parts of themselves affected by trauma.
+- **Parts Mapping**: A visual tool to help users identify and work through different parts of themselves affected by trauma, powered by [Excalidraw](https://github.com/excalidraw/excalidraw) for intuitive and user-friendly visual mapping.
 - **Externalized Dialogue**: Guided prompts to facilitate internal conversations that lead to healing.
 
 ## Features
@@ -16,9 +16,13 @@ HelpForTrauma.ai leverages state-of-the-art technologies such as AI-powered chat
 - **AI Assistant**: An intelligent assistant that guides users through their healing journey, answers questions, and provides insights.
 - **Interactive Exercises**: A variety of exercises such as grounding and visual mapping to help users process their trauma.
 - **Safe Place Page**: A dedicated space that offers grounding techniques and a feeling of safety when users need it most.
-- **Parts Map Page**: Tools to externalize and visualize parts of themselves to aid in healing.
+- **Parts Map Page**: Tools to externalize and visualize parts of themselves to aid in healing, using [Excalidraw](https://github.com/excalidraw/excalidraw) for real-time, collaborative drawing.
 - **Externalized Dialogue**: Prompts and exercises for self-reflection and internal dialogue.
-  
+
+## Open-Source Integration
+
+The app integrates **Excalidraw**, an open-source whiteboard-like tool that allows for intuitive visual representations. It is particularly useful for the **Parts Map** feature, enabling users to visually map out different parts of themselves, making the process both interactive and engaging. The flexibility of Excalidraw allows users to collaborate in real-time and modify their drawings to reflect their ongoing trauma healing process.
+
 ## Getting Started
 
 These instructions will help you set up the project locally for development and testing purposes.
@@ -64,6 +68,7 @@ The app will be available at `http://localhost:3000`.
 - **Database**: Vercel KV for chat history, rate limiting, and session storage
 - **UI/UX**: Radix UI for headless components
 - **Styling**: Tailwind CSS for streamlined, responsive designs
+- **Visual Tools**: Excalidraw for real-time drawing and mapping
 
 ## Folder Structure
 
@@ -80,3 +85,4 @@ HelpForTrauma.ai/
 ├── .env.local                # Environment variables
 ├── README.md                 # Project documentation
 └── package.json              # Dependencies and scripts
+
