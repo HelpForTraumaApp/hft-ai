@@ -72,9 +72,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   <div className="group flex-1 w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
                     <Template>{children}</Template>
                   </div>
-                  <div className="px-3">
-                    <Chat />
-                  </div>
+                  <Chat />
                 </div>
               ) : (
                 children

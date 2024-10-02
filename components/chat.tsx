@@ -177,13 +177,13 @@ export default function Chat() {
 
   return (
     <div
-      className={`z-30 bg-muted h-full w-[300px] lg:w-[450px] xl:w-[500px] transition-transform duration-300 ease-in-out ${
+      className={`z-30 bg-muted h-full border border-2 border-gray-300 p-5 w-[300px] lg:w-[450px] xl:w-[500px] transition-transform duration-300 ease-in-out ${
         isAISidebarOpen ? 'translate-x-0' : '-translate-x-full hidden'
       }`}
     >
       <div className="flex flex-col justify-between h-full pt-4 pb-5 ">
         <div
-          className="space-y-5 overflow-scroll"
+          className="space-y-5 overflow-auto"
           style={{ maxHeight: 'calc(100vh - 20px)' }}
         >
           {messages.map(m => {
